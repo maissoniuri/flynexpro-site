@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlynexPRO | Soluções em Monitoramento Industrial</title>
+  <style>
+    :root {
+      --primary: #41b6e6;
+      --primary-dark: #247da0;
+      --bg: #0b0e12;
+      --bg-alt: #11151b;
+      --text: #f5f5f5;
+      --muted: #b3b3b3;
+      --card: #151a22;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #182231 0, #05070a 45%, #000 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(5, 7, 10, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.95rem;
+    }
+
+    .logo span {
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #000;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.2rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.2rem;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.2s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 1.5rem 3rem;
+    }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 2rem;
+      align-items: center;
+      padding: 2rem 0 3rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 18px rgba(65, 182, 230, 0.9);
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 3.1vw, 2.6rem);
+      margin-bottom: 0.8rem;
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+    }
+
+    .hero p {
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+      font-size: 0.98rem;
+      max-width: 34rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.3rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text);
+      transition: all 0.18s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #000;
+      font-weight: 600;
+      box-shadow: 0 0 18px rgba(65, 182, 230, 0.65);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 26px rgba(65, 182, 230, 0.9);
+    }
+
+    .btn-outline {
+      border-color: rgba(255, 255, 255, 0.18);
+      color: var(--muted);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 1.8rem;
+      flex-wrap: wrap;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .hero-meta strong {
+      display: block;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top, #1a2b3b 0, #05070a 55%);
+      border-radius: 1.3rem;
+      padding: 1.6rem 1.4rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top, rgba(65, 182, 230, 0.18), transparent 60%);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .hero-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .chip span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+
+    .hero-card h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.7rem;
+      font-size: 0.8rem;
+    }
+
+    .hero-stat {
+      background: rgba(3, 6, 12, 0.65);
+      border-radius: 0.9rem;
+      padding: 0.6rem 0.7rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-stat-label {
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    .hero-stat-value {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 2.5rem 0 0;
+    }
+
+    h2.section-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.4fr);
+      gap: 1.8rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 1.1rem;
+      padding: 1.3rem 1.3rem 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.3rem;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--muted);
+    }
+
+    ul.checklist {
+      list-style: none;
+      font-size: 0.9rem;
+    }
+
+    ul.checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+      margin-bottom: 0.4rem;
+      color: var(--muted);
+    }
+
+    ul.checklist li::before {
+      content: "✔";
+      color: var(--primary);
+      font-size: 0.8rem;
+      margin-top: 0.05rem;
+    }
+
+    /* PRODUCT CARDS */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background: var(--card);
+      border-radius: 1rem;
+      padding: 1.1rem 1.1rem 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .product-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .product-card h3 {
+      font-size: 1.05rem;
+    }
+
+    .product-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .product-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .product-meta strong {
+      color: var(--text);
+    }
+
+    .product-footer {
+      margin-top: 0.3rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* CONTACT */
+    .contact {
+      margin-top: 2rem;
+      background: rgba(5, 7, 12, 0.9);
+      border-radius: 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 1.4rem 1.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
+      gap: 1.4rem;
+    }
+
+    .contact h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .contact p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-info {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .contact-info div {
+      margin-bottom: 0.25rem;
+    }
+
+    .contact-info span {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    footer {
+      padding: 1.6rem 1.5rem 1.8rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: #000;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-card {
+        order: -1;
+      }
+
+      .grid-2,
+      .contact {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      main {
+        padding-inline: 1rem;
+      }
+
+      .nav {
+        padding-inline: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="logo">
+        <span>FlynexPRO</span>
+        <div>Monitoring Systems</div>
+      </div>
+      <nav class="nav-links">
+        <a href="#sobre">Sobre</a>
+        <a href="#nexgap">NexGap</a>
+        <a href="#produtos">Soluções</a>
+        <a href="#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="badge">
+          <div class="badge-dot"></div>
+          Monitoramento inteligente de ativos
+        </div>
+        <h1>
+          FlynexPRO<br />
+          <span>Soluções em Monitoramento Industrial</span>
+        </h1>
+        <p>
+          Desenvolvemos sistemas inteligentes de supervisão para aumentar a
+          confiabilidade, segurança e eficiência de ativos críticos – com foco
+          em medição de <strong>gap</strong> e
+          <strong>vibração de blades</strong> em aerogeradores.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#nexgap">Ver solução NexGap</a>
+          <a class="btn btn-outline" href="#contato">Falar com a FlynexPRO</a>
+        </div>
+
+        <div class="hero-meta">
+          <div>
+            <strong>Monitoramento contínuo</strong>
+            Gap + vibração de blades em tempo real.
+          </div>
+          <div>
+            <strong>Integração simplificada</strong>
+            Supervisório dedicado com acesso remoto seguro.
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-card-inner">
+          <div class="chip">
+            <span></span> Sistema NexGap
+          </div>
+          <h2>Monitoramento de Gap e Vibração de Blades</h2>
+          <p>
+            Solução modular baseada em sensores industriais, eletrônica embarcada
+            com ESP32-S3 e supervisório próprio para acompanhamento contínuo da
+            condição das pás.
+          </p>
+          <div class="hero-grid">
+            <div class="hero-stat">
+              <div class="hero-stat-label">Parâmetros</div>
+              <div class="hero-stat-value">Gap + Vibração</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-label">Leitura</div>
+              <div class="hero-stat-value">Amostragem até 100 Hz</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-label">Comunicação</div>
+              <div class="hero-stat-value">ModbusTCP / MQTT</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-label">Aplicação</div>
+              <div class="hero-stat-value">Parques eólicos onshore</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre">
+      <h2 class="section-title">Sobre a FlynexPRO</h2>
+      <p class="section-subtitle">
+        Tecnologia, monitoramento inteligente e foco em confiabilidade operacional.
+      </p>
+      <div class="grid-2">
+        <div>
+          <div class="card">
+            <h3>Quem somos</h3>
+            <p>
+              A FlynexPRO é uma empresa focada no desenvolvimento de soluções
+              inteligentes para monitoramento industrial e supervisão técnica de
+              equipamentos. Nosso objetivo é levar tecnologia acessível,
+              confiável e de alta precisão para operações que exigem controle
+              constante, segurança operacional e tomada de decisão baseada em dados.
+            </p>
+            <p>
+              Combinando engenharia eletrônica, IoT e supervisão em tempo real,
+              criamos sistemas capazes de antecipar falhas, reduzir custos e
+              aumentar a eficiência operacional dos nossos clientes.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Monitoramento industrial</span>
+              <span class="tag">IoT</span>
+              <span class="tag">Supervisão em tempo real</span>
+              <span class="tag">Energia eólica</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h3>Como trabalhamos</h3>
+            <ul class="checklist">
+              <li>
+                Projeto de hardware baseado em sensores industriais, eletrônica
+                robusta e comunicação segura.
+              </li>
+              <li>
+                Firmware próprio embarcado em ESP32-S3, com filtragem digital,
+                calibração e diagnóstico de falhas.
+              </li>
+              <li>
+                Supervisório dedicado para visualização, alarmes, histórico e
+                análise de tendência.
+              </li>
+              <li>
+                Foco em soluções modulares, escaláveis e adaptadas à realidade de
+                cada cliente.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEXGAP -->
+    <section id="nexgap">
+      <h2 class="section-title">NexGap – Monitoramento de Gap de Blades</h2>
+      <p class="section-subtitle">
+        Sistema inteligente para supervisão contínua de distância entre pás,
+        com opção de módulos de vibração por blade.
+      </p>
+      <div class="grid-2">
+        <div>
+          <div class="card">
+            <h3>O que é o NexGap</h3>
+            <p>
+              O NexGap é um sistema IoT industrial projetado para monitorar, em
+              tempo real, o <strong>gap entre blades</strong> e, opcionalmente, a
+              <strong>vibração individual de cada pá</strong>. A solução combina
+              sensores indutivos analógicos, eletrônica dedicada (NexGap Shield)
+              e um supervisório próprio (NexGap View).
+            </p>
+            <p>
+              O objetivo é fornecer uma camada adicional de supervisão para o
+              aerogerador, permitindo identificar desalinhamentos, variações de
+              gap e padrões de vibração que possam indicar falhas estruturais ou
+              necessidade de intervenção de manutenção.
+            </p>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h3>Principais características</h3>
+            <ul class="checklist">
+              <li>Leitura contínua de gap entre blades por sensor indutivo.</li>
+              <li>Opção de 3 módulos de vibração – um por pá.</li>
+              <li>Eletrônica embarcada com ESP32-S3 e filtragem digital.</li>
+              <li>Supervisório NexGap View com gráficos, alarmes e histórico.</li>
+              <li>Operação independente do sistema de controle da turbina.</li>
+              <li>Comunicação via ModbusTCP ou MQTT, conforme necessidade.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUTOS / SOLUÇÕES -->
+    <section id="produtos">
+      <h2 class="section-title">Soluções FlynexPRO</h2>
+      <p class="section-subtitle">
+        Linha de sistemas orientados a supervisão inteligente e manutenção
+        preditiva.
+      </p>
+
+      <div class="product-grid">
+        <article class="product-card">
+          <div class="product-label">Sistema principal</div>
+          <h3>NexGap – Monitor de Gap de Blades</h3>
+          <p>
+            Sistema dedicado à medição contínua da distância relativa entre pás,
+            utilizando sensores indutivos analógicos de alta precisão, eletrônica
+            robusta e supervisório próprio.
+          </p>
+          <div class="product-meta">
+            <strong>Aplicações:</strong> alinhamento de blades, análise de
+            variação de gap, suporte à manutenção de pitch e diagnóstico de
+            vibração estrutural.
+          </div>
+          <div class="product-footer">
+            Monitoramento não intrusivo, sem interferir na lógica de controle da
+            turbina.
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-label">Módulo complementar</div>
+          <h3>NexGap-VIB – Módulo de Vibração por Pá</h3>
+          <p>
+            Módulo opcional para monitoramento de vibração das pás, com três
+            canais (um por blade), filtragem digital, cálculo de pico e RMS e
+            integração direta ao NexGap View.
+          </p>
+          <div class="product-meta">
+            <strong>Aplicações:</strong> detecção precoce de trincas, ressonância
+            anormal, aumento de carga dinâmica e correlação entre vibração e gap.
+          </div>
+          <div class="product-footer">
+            Ideal para ampliar o diagnóstico da condição estrutural das blades.
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-label">Supervisório</div>
+          <h3>NexGap View – Supervisório Dedicado</h3>
+          <p>
+            Plataforma de supervisão desenvolvida para o NexGap, com dashboards,
+            gráficos de tendência, alarmes configuráveis, logs de eventos e
+            acesso remoto seguro.
+          </p>
+          <div class="product-meta">
+            <strong>Destaques:</strong> visualização por turbina, histórico de
+            gap e vibração, exportação de dados e suporte a análise de tendência.
+          </div>
+          <div class="product-footer">
+            Operação independente do SCADA da turbina, com foco em supervisão
+            especializada.
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato">
+      <h2 class="section-title">Contato</h2>
+      <p class="section-subtitle">
+        Interessado em conhecer melhor o NexGap ou discutir uma aplicação específica?
+      </p>
+
+      <div class="contact">
+        <div>
+          <h3>Fale com a FlynexPRO</h3>
+          <p>
+            Envie sua necessidade técnica, quantidade de turbinas e modelo de
+            aplicação para receber uma proposta personalizada de fornecimento e
+            implantação do NexGap.
+          </p>
+          <p>
+            Também podemos agendar uma apresentação técnica da solução, com foco
+            em integração, arquitetura e escopo de implantação.
+          </p>
+        </div>
+        <div class="contact-info">
+          <div><span>E-mail:</span> contato@flynexpro.com.br</div>
+          <div><span>WhatsApp:</span> (00) 00000-0000</div>
+          <div><span>Cidade/UF:</span> &mdash;</div>
+          <div style="margin-top:0.7rem;">
+            <span>Observação:</span> substitua estes dados pelos contatos oficiais
+            da empresa antes de publicar o site.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> FlynexPRO · Soluções em Monitoramento Industrial ·
+    Todos os direitos reservados.
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </footer>
+</body>
+</html>
