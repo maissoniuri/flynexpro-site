@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -204,7 +205,7 @@
       font-size: 0.9rem;
     }
 
-    /* ===== HERO VIDEO (substitui o hero-card) ===== */
+    /* ===== HERO VIDEO ===== */
     .hero-video {
       background: radial-gradient(circle at top, #1a2b3b 0, #05070a 55%);
       border-radius: 1.3rem;
@@ -246,19 +247,12 @@
       z-index: 0;
     }
 
-    /* texto/camada opcional sobre o vídeo */
     .hero-video-overlay {
       position: absolute;
       left: 1rem;
       right: 1rem;
       bottom: 1rem;
       z-index: 3;
-    }
-
-    .hero-video-overlay .chip {
-      margin-bottom: 0.6rem;
-      background: rgba(0,0,0,0.25);
-      backdrop-filter: blur(6px);
     }
 
     .hero-video-overlay h2 {
@@ -274,7 +268,6 @@
     }
     /* ===== /HERO VIDEO ===== */
 
-    /* SECTIONS */
     section {
       padding: 2.5rem 0 0;
     }
@@ -349,7 +342,6 @@
       margin-top: 0.05rem;
     }
 
-    /* PRODUCT CARDS */
     .product-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -397,7 +389,6 @@
       color: var(--muted);
     }
 
-    /* CONTACT */
     .contact {
       margin-top: 2rem;
       background: rgba(5, 7, 12, 0.9);
@@ -449,7 +440,6 @@
         grid-template-columns: minmax(0, 1fr);
       }
 
-      /* vídeo primeiro no mobile (mesma intenção do hero-card anterior) */
       .hero-video {
         order: -1;
       }
@@ -524,28 +514,32 @@
         </div>
       </div>
 
-      <!-- HERO VIDEO (GitHub Pages) -->
-      <!-- Caminho esperado no repo:
-           assets/video/nexgap-hero.mp4 -->
-      <div class="hero-video" aria-label="Vídeo institucional NexGap">
-        <video autoplay muted loop playsinline preload="metadata">
-          <source src="assets/video/nexgap-hero.mp4" type="video/mp4" />
-          Seu navegador não suporta vídeo HTML5.
-        </video>
-
-        <!-- Overlay (mantém contexto do NexGap sem poluir o vídeo) -->
-        <div class="hero-video-overlay">
-          <div class="chip">
-            <!--<span></span> Sistema NexGap 
+      <!-- HERO VIDEOS (NexGap + NexVIB) -->
+      <div style="display:grid; gap:1rem;">
+        <!-- NexGap -->
+        <div class="hero-video" aria-label="Vídeo institucional NexGap">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="assets/video/nexgap-hero.mp4" type="video/mp4" />
+            Seu navegador não suporta vídeo HTML5.
+          </video>
+          <div class="hero-video-overlay">
+            <h2>NexGap</h2>
+            <p>Monitoramento de gap e vibração de blades em aerogeradores.</p>
           </div>
-          <h2>Monitoramento de Gap e Vibração de Blades</h2>
-          <p>
-            Solução modular baseada em sensores industriais, eletrônica embarcada
-            com ESP32-S3 e supervisório próprio para acompanhamento contínuo da
-            condição das pás.
-          </p>
         </div>
-      </div> -->
+
+        <!-- NexVIB -->
+        <div class="hero-video" aria-label="Vídeo institucional NexVIB">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="assets/video/nexvib-hero.mp4" type="video/mp4" />
+            Seu navegador não suporta vídeo HTML5.
+          </video>
+          <div class="hero-video-overlay">
+            <h2>NexVIB</h2>
+            <p>Módulo dedicado à análise de vibração estrutural por pá.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- SOBRE -->
@@ -735,8 +729,7 @@
           <div><span>E-mail:</span> contato@flynexpro.com.br</div>
           <div><span>WhatsApp:</span> (96) 9 9116-7411</div>
           <div><span>Cidade/UF:</span> Nova Mutum &mdash; MT</div>
-          <div style="margin-top:0.7rem;">
-          </div>
+          <div style="margin-top:0.7rem;"></div>
         </div>
       </div>
     </section>
@@ -751,3 +744,4 @@
   </footer>
 </body>
 </html>
+```
