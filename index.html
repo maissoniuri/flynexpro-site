@@ -534,12 +534,32 @@
 
     /* Responsivo */
     @media (max-width: 860px) {
-      .hero { grid-template-columns: minmax(0, 1fr); padding-top: 1.4rem; }
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+
+        /* antes: padding-top: 1.4rem; */
+        padding-top: 0.8rem;
+
+        /* compacta melhor o “vão” no mobile */
+        padding-bottom: 2rem;
+      }
+
       .grid-2, .contact { grid-template-columns: minmax(0, 1fr); }
       .nav-links { display: none; }
       .menu-btn { display: inline-flex; }
-      main { padding-inline: 1rem; }
+
+      /* antes: main { padding-inline: 1rem; } */
+      main {
+        padding-inline: 1rem;
+        padding-top: 0.9rem; /* reduz distância da barra para o conteúdo */
+      }
+
       .nav { padding-inline: 1rem; }
+
+      /* compactação fina do topo */
+      .badge { margin-bottom: 0.55rem; }
+      .hero h1 { margin-bottom: 0.55rem; }
+      .hero p { margin-bottom: 1.1rem; }
     }
 
     /* Reduz animação para quem prefere */
