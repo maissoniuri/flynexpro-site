@@ -547,6 +547,38 @@
       html:focus-within { scroll-behavior: auto; }
       .btn, .nav-links a::after, .menu-btn { transition: none; }
     }
+
+    /* ===============================
+       TEXTO JUSTIFICADO (PARÁGRAFOS)
+       - Desktop: justificado + hifenização
+       - Mobile: alinhado à esquerda (melhor leitura)
+       =============================== */
+
+    @media (min-width: 768px) {
+      .hero p,
+      .card p,
+      .product-card p,
+      .contact p,
+      .section-subtitle {
+        text-align: justify;
+        text-justify: inter-word;
+        hyphens: auto;
+        -webkit-hyphens: auto;
+        text-align-last: left;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .hero p,
+      .card p,
+      .product-card p,
+      .contact p,
+      .section-subtitle {
+        text-align: left;
+        hyphens: none;
+        -webkit-hyphens: none;
+      }
+    }
   </style>
 </head>
 
