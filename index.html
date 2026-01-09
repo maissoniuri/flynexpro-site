@@ -13,7 +13,6 @@
   <meta property="og:title" content="FlynexPRO | Plataforma de Monitoramento Industrial" />
   <meta property="og:description" content="Plataforma modular para supervisão contínua de ativos críticos: hardware, firmware, comunicação e dados em um único ecossistema." />
   <meta property="og:type" content="website" />
-  <!-- Sugestão: criar um banner social 1200x630 -->
   <meta property="og:image" content="assets/og-flynexpro.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -387,6 +386,47 @@
       max-width: 60rem;
     }
 
+    /* ===============================
+       NOVA SEÇÃO – VÍDEO DO CONSOLE (CAMPO)
+       =============================== */
+    .console-video {
+      margin-top: 2.8rem;
+    }
+
+    .console-video-card {
+      background: radial-gradient(circle at top, #1a2b3b 0, #05070a 60%);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-strong);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .console-video-card video {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .console-video-overlay {
+      padding: 1.2rem 1.4rem;
+      background: linear-gradient(to top, rgba(5,7,10,0.75), rgba(5,7,10,0.15));
+    }
+
+    .console-video-overlay h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .console-video-overlay p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      max-width: 52rem;
+      margin: 0;
+    }
+    /* =============================== */
+
     .grid-2 {
       display: grid;
       grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.4fr);
@@ -536,11 +576,7 @@
     @media (max-width: 860px) {
       .hero {
         grid-template-columns: minmax(0, 1fr);
-
-        /* antes: padding-top: 1.4rem; */
         padding-top: 0.8rem;
-
-        /* compacta melhor o “vão” no mobile */
         padding-bottom: 2rem;
       }
 
@@ -548,18 +584,20 @@
       .nav-links { display: none; }
       .menu-btn { display: inline-flex; }
 
-      /* antes: main { padding-inline: 1rem; } */
       main {
         padding-inline: 1rem;
-        padding-top: 0.9rem; /* reduz distância da barra para o conteúdo */
+        padding-top: 0.9rem;
       }
 
       .nav { padding-inline: 1rem; }
 
-      /* compactação fina do topo */
       .badge { margin-bottom: 0.55rem; }
       .hero h1 { margin-bottom: 0.55rem; }
       .hero p { margin-bottom: 1.1rem; }
+
+      /* leve ajuste do bloco do console no mobile */
+      .console-video { margin-top: 2.2rem; }
+      .console-video-overlay { padding: 1rem 1rem; }
     }
 
     /* Reduz animação para quem prefere */
@@ -573,13 +611,13 @@
        - Desktop: justificado + hifenização
        - Mobile: alinhado à esquerda (melhor leitura)
        =============================== */
-
     @media (min-width: 768px) {
       .hero p,
       .card p,
       .product-card p,
       .contact p,
-      .section-subtitle {
+      .section-subtitle,
+      .console-video-overlay p {
         text-align: justify;
         text-justify: inter-word;
         hyphens: auto;
@@ -593,7 +631,8 @@
       .card p,
       .product-card p,
       .contact p,
-      .section-subtitle {
+      .section-subtitle,
+      .console-video-overlay p {
         text-align: left;
         hyphens: none;
         -webkit-hyphens: none;
@@ -713,6 +752,31 @@
             <h2>Core + Console</h2>
             <p>Núcleo de dados, APIs e supervisão web para gestão de dispositivos, alarmes e histórico.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ✅ NOVA SEÇÃO: CONSOLE EM CAMPO -->
+    <section class="console-video" id="console">
+      <h2 class="section-title">Console FlynexPRO em Operação</h2>
+      <p class="section-subtitle">
+        Supervisão prática e acesso imediato às informações durante períodos de manutenção em campo.
+      </p>
+
+      <div class="console-video-card" aria-label="Vídeo do Console em operação no iPad">
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/video/console-campo.jpg">
+          <source src="assets/video/console-campo.mp4" type="video/mp4" />
+          Seu navegador não suporta vídeo HTML5.
+        </video>
+
+        <div class="console-video-overlay">
+          <h3>Praticidade durante manutenção nas torres</h3>
+          <p>
+            O Console FlynexPRO permite que equipes de manutenção visualizem, em tempo real,
+            o estado dos dispositivos, histórico e alarmes diretamente no campo, reduzindo
+            tempo de diagnóstico e aumentando a segurança operacional durante intervenções
+            em aerogeradores.
+          </p>
         </div>
       </div>
     </section>
@@ -917,7 +981,6 @@
     function openDrawer() {
       drawer.classList.add("open");
       menuBtn.setAttribute("aria-expanded", "true");
-      // trava scroll
       document.body.style.overflow = "hidden";
     }
 
