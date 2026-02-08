@@ -8,36 +8,82 @@
     }
   }
 
-  // ✅ Cole aqui a URL do seu Google Apps Script (Web App)
-  // Ex.: "https://script.google.com/macros/s/XXXX/exec"
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzTsIyNYezrDV6jn61IijxLYTy7CDEGnalPYsHqUD6CrX__c6ry9C0Sk4V1P5ER__o/exec";
+  // ✅ URL do Google Apps Script (Web App)
+  const SCRIPT_URL =
+    "https://script.google.com/macros/s/AKfycbzTsIyNYezrDV6jn61IijxLYTy7CDEGnalPYsHqUD6CrX__c6ry9C0Sk4V1P5ER__o/exec";
+
+  function setStatus(el, msg, kind) {
+    if (!el) return;
+    el.textContent = msg || "";
+    el.style.marginLeft = "0.75rem";
+    el.style.fontSize = "0.9rem";
+    el.style.color =
+      kind === "ok"
+        ? "rgba(180,255,210,0.92)"
+        : kind === "err"
+        ? "rgba(255,190,190,0.92)"
+        : "rgba(255,255,255,0.72)";
+  }
+
+  async function postToAppsScript(payload) {
+    // 1) Tenta normal (para conseguir ler resposta)
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" }, // evita preflight em muitos casos
+        body: JSON.stringify(payload),
+      });
+
+      const text = await res.text().catch(() => "");
+
+      // Se o Apps Script retornar JSON: {"ok":true}
+      // ou texto simples "ok"
+      let ok = res.ok;
+      if (text) {
+        try {
+          const maybe = JSON.parse(text);
+          if (typeof maybe?.ok === "boolean") ok = ok && maybe.ok;
+        } catch {
+          // se não for JSON, ok continua res.ok
+        }
+      }
+      return { ok, text, opaque: false };
+    } catch (err) {
+      // 2) Fallback: no-cors (não dá pra ler resposta, mas costuma gravar na planilha)
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload),
+      });
+      return { ok: true, text: "", opaque: true };
+    }
+  }
 
   ready(() => {
     const cta = document.getElementById("leadCta");
     const modal = document.getElementById("leadModal");
     const closeBtn = document.getElementById("leadClose");
 
-    // ✅ form + UI
     const form = document.getElementById("leadForm");
     const statusEl = document.getElementById("leadStatus");
     const submitBtn = document.getElementById("leadSubmit");
 
-    if (!cta || !modal || !closeBtn) return;
+    if (!cta || !modal || !closeBtn || !form || !statusEl || !submitBtn) return;
 
-    // garante estado inicial fechado
+    // estado inicial fechado
     modal.classList.remove("open");
     modal.setAttribute("aria-hidden", "true");
     modal.style.display = "none";
     cta.setAttribute("aria-expanded", "false");
 
     function openLead() {
-      modal.classList.add("open");              // ✅ principal (CSS)
+      modal.classList.add("open");
       modal.setAttribute("aria-hidden", "false");
-      modal.style.display = "flex";             // ✅ fallback se o CSS falhar
+      modal.style.display = "flex";
       cta.setAttribute("aria-expanded", "true");
       document.body.style.overflow = "hidden";
-
-      // foco acessível
+      setStatus(statusEl, "", "idle");
       closeBtn.focus({ preventScroll: true });
     }
 
@@ -47,84 +93,86 @@
       modal.style.display = "none";
       cta.setAttribute("aria-expanded", "false");
       document.body.style.overflow = "";
-
-      // devolve foco
+      setStatus(statusEl, "", "idle");
       cta.focus({ preventScroll: true });
     }
 
     cta.addEventListener("click", openLead);
     closeBtn.addEventListener("click", closeLead);
 
-    // clicar fora do painel fecha
     modal.addEventListener("click", (e) => {
       if (e.target === modal) closeLead();
     });
 
-    // ESC fecha
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && modal.classList.contains("open")) closeLead();
     });
 
-    // =========================
-    // ✅ Envio para Google Sheets (Apps Script Web App)
-    // =========================
-    if (form) {
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+    // ✅ Submit
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-        // honeypot anti-bot
-        const hp = (form.elements.website?.value || "").trim();
-        if (hp) return;
+      // honeypot anti-bot
+      const hpInput = form.querySelector('input[name="website"]');
+      const hp = (hpInput?.value || "").trim();
+      if (hp) return;
 
-        if (!SCRIPT_URL || SCRIPT_URL.includes("COLE_AQUI")) {
-          if (statusEl) statusEl.textContent = "Configuração pendente: falta SCRIPT_URL.";
+      if (!SCRIPT_URL || !SCRIPT_URL.includes("script.google.com/macros/s/")) {
+        setStatus(statusEl, "Configuração pendente: SCRIPT_URL inválida.", "err");
+        return;
+      }
+
+      const data = new FormData(form);
+      const payload = {
+        website: String(data.get("website") || ""),
+        name: String(data.get("name") || "").trim(),
+        email: String(data.get("email") || "").trim(),
+        phone: String(data.get("phone") || "").trim(),
+        whatsapp: String(data.get("whatsapp") || "").trim(),
+        city: String(data.get("city") || "").trim(),
+        state: String(data.get("state") || "").trim(),
+        company: String(data.get("company") || "").trim(),
+        role: String(data.get("role") || "").trim(),
+        page_url: window.location.href,
+        user_agent: navigator.userAgent,
+        ts: new Date().toISOString(),
+      };
+
+      if (!payload.name || !payload.email) {
+        setStatus(statusEl, "Preencha Nome e E-mail.", "err");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = "0.7";
+      setStatus(statusEl, "Enviando…", "idle");
+
+      try {
+        const result = await postToAppsScript(payload);
+
+        if (!result.ok) {
+          setStatus(
+            statusEl,
+            "Falha ao enviar. Verifique permissões do Web App (implantação) e a planilha.",
+            "err"
+          );
           return;
         }
 
-        const payload = {
-          name: document.getElementById("leadName")?.value.trim() || "",
-          email: document.getElementById("leadEmail")?.value.trim() || "",
-          phone: document.getElementById("leadPhone")?.value.trim() || "",
-          whatsapp: document.getElementById("leadWhatsapp")?.value.trim() || "",
-          city: document.getElementById("leadCity")?.value.trim() || "",
-          state: document.getElementById("leadState")?.value.trim() || "",
-          company: document.getElementById("leadCompany")?.value.trim() || "",
-          role: document.getElementById("leadRole")?.value.trim() || "",
-          page_url: window.location.href,
-          user_agent: navigator.userAgent,
-        };
+        setStatus(statusEl, "✅ Enviado com sucesso! Em breve entraremos em contato.", "ok");
+        form.reset();
 
-        try {
-          if (submitBtn) submitBtn.disabled = true;
-          if (statusEl) statusEl.textContent = "Enviando...";
-
-          // text/plain evita preflight chato em muitos casos
-          const res = await fetch(SCRIPT_URL, {
-            method: "POST",
-            headers: { "Content-Type": "text/plain;charset=utf-8" },
-            body: JSON.stringify(payload),
-          });
-
-          const json = await res.json().catch(() => ({}));
-          if (!res.ok || !json.ok) {
-            throw new Error(json.error || `Falha ao salvar (${res.status})`);
-          }
-
-          if (statusEl) statusEl.textContent = "Enviado! ✅";
-          form.reset();
-
-          // fecha modal após um tempinho
-          setTimeout(() => {
-            closeLead();
-            if (statusEl) statusEl.textContent = "";
-          }, 700);
-        } catch (err) {
-          console.error(err);
-          if (statusEl) statusEl.textContent = "Erro ao enviar. Tente novamente.";
-        } finally {
-          if (submitBtn) submitBtn.disabled = false;
-        }
-      });
-    }
+        setTimeout(() => {
+          closeLead();
+          setStatus(statusEl, "", "idle");
+        }, 900);
+      } catch (err) {
+        console.error(err);
+        setStatus(statusEl, "Erro ao enviar. Tente novamente.", "err");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = "1";
+      }
+    });
   });
 })();
