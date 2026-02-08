@@ -21,3 +21,121 @@
 
 /* … resto do CSS exatamente igual … */
 
+/* ===== Lead Modal (overlay + painel) ===== */
+
+.lead-modal{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;              /* acima de tudo */
+  display: none;              /* fechado por padrão */
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(6px);
+}
+
+.lead-modal.open{
+  display: flex;              /* abre quando JS adiciona .open */
+}
+
+.lead-modal-panel{
+  width: min(760px, 96vw);
+  max-height: min(86vh, 820px);
+  overflow: auto;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(10, 14, 18, 0.95);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.75);
+}
+
+.lead-modal-head{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 18px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+
+.lead-modal-title{
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.lead-modal-sub{
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.70);
+}
+
+.lead-modal-close{
+  border: 1px solid rgba(255,255,255,0.16);
+  background: transparent;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.5rem 0.85rem;
+  cursor: pointer;
+}
+
+.lead-modal-body{
+  padding: 16px 18px 18px;
+}
+
+/* Honeypot escondido */
+.lead-hidden{
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Form layout */
+.lead-grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.field label{
+  display: block;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 6px;
+}
+
+.field input{
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(21,26,34,0.55);
+  color: #fff;
+  outline: none;
+}
+
+.field input:focus{
+  border-color: rgba(65,182,230,0.65);
+  box-shadow: 0 0 0 3px rgba(65,182,230,0.18);
+}
+
+.lead-actions{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.lead-status{
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.75);
+}
+
+/* Mobile */
+@media (max-width: 760px){
+  .lead-grid{ grid-template-columns: 1fr; }
+  .lead-modal-panel{ width: 100%; }
+}
