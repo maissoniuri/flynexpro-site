@@ -16,6 +16,9 @@
   <meta property="og:image" content="assets/og-flynexpro.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
+  <!-- ✅ Lead Modal (separado) -->
+  <link rel="stylesheet" href="assets/css/lead-modal.css" />
+
   <style>
     :root {
       --primary: #41b6e6;
@@ -969,6 +972,83 @@
     Todos os direitos reservados.
   </footer>
 
+  <!-- ✅ Lead CTA + Modal (HTML fica no index) -->
+  <button class="floating-cta" id="leadCta" type="button"
+    aria-haspopup="dialog" aria-controls="leadModal" aria-expanded="false">
+    Saiba Mais
+  </button>
+
+  <div class="lead-modal" id="leadModal" role="dialog" aria-modal="true" aria-label="Formulário de contato">
+    <div class="lead-modal-panel" role="document">
+      <div class="lead-modal-head">
+        <div>
+          <h3 class="lead-modal-title">Saiba mais sobre a FlynexPRO</h3>
+          <div class="lead-modal-sub">
+            Preencha seus dados e a equipe entra em contato para uma apresentação técnica (plataforma, módulos e implantação).
+          </div>
+        </div>
+        <button class="lead-modal-close" id="leadClose" type="button" aria-label="Fechar">Fechar</button>
+      </div>
+
+      <div class="lead-modal-body">
+        <form id="leadForm">
+          <!-- Honeypot anti-bot -->
+          <div class="lead-hidden">
+            <label>Se você é humano, deixe em branco</label>
+            <input type="text" name="website" autocomplete="off" tabindex="-1" />
+          </div>
+
+          <div class="lead-grid">
+            <div class="field">
+              <label for="leadName">Nome *</label>
+              <input id="leadName" name="name" type="text" required maxlength="120" placeholder="Seu nome" />
+            </div>
+
+            <div class="field">
+              <label for="leadEmail">E-mail *</label>
+              <input id="leadEmail" name="email" type="email" required maxlength="160" placeholder="seuemail@empresa.com" />
+            </div>
+
+            <div class="field">
+              <label for="leadPhone">Tel. de contato</label>
+              <input id="leadPhone" name="phone" type="tel" maxlength="32" placeholder="(DD) 9 9999-9999" />
+            </div>
+
+            <div class="field">
+              <label for="leadWhatsapp">WhatsApp</label>
+              <input id="leadWhatsapp" name="whatsapp" type="tel" maxlength="32" placeholder="(DD) 9 9999-9999" />
+            </div>
+
+            <div class="field">
+              <label for="leadCity">Cidade</label>
+              <input id="leadCity" name="city" type="text" maxlength="80" placeholder="Ex.: Nova Mutum" />
+            </div>
+
+            <div class="field">
+              <label for="leadState">Estado</label>
+              <input id="leadState" name="state" type="text" maxlength="2" placeholder="UF (ex.: MT)" />
+            </div>
+
+            <div class="field">
+              <label for="leadCompany">Empresa</label>
+              <input id="leadCompany" name="company" type="text" maxlength="120" placeholder="Nome da empresa" />
+            </div>
+
+            <div class="field">
+              <label for="leadRole">Cargo</label>
+              <input id="leadRole" name="role" type="text" maxlength="120" placeholder="Ex.: Eng. Manutenção" />
+            </div>
+          </div>
+
+          <div class="lead-actions">
+            <button class="btn btn-primary" id="leadSubmit" type="submit">Enviar</button>
+            <div class="lead-status" id="leadStatus" aria-live="polite"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <script>
     // ano
     document.getElementById("year").textContent = new Date().getFullYear();
@@ -1008,5 +1088,8 @@
       if (e.key === "Escape" && drawer.classList.contains("open")) closeDrawer();
     });
   </script>
+
+  <!-- ✅ Lead Modal (JS separado) -->
+  <script src="assets/js/lead-modal.js"></script>
 </body>
 </html>
