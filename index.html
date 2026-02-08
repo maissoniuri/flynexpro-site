@@ -373,7 +373,6 @@
       margin-bottom: 0;
       max-width: 34rem;
     }
-    /* ===== /HERO VIDEO ===== */
 
     section { padding: 2.5rem 0 0; }
 
@@ -389,9 +388,6 @@
       max-width: 60rem;
     }
 
-    /* ===============================
-       NOVA SEÇÃO – VÍDEO DO CONSOLE (CAMPO)
-       =============================== */
     .console-video { margin-top: 2.8rem; }
 
     .console-video-card {
@@ -578,7 +574,7 @@
       }
     }
 
-    /* ✅ FAILSAFE: se o CSS externo falhar, o modal começa oculto */
+    /* ✅ FAILSAFE: se o modal está aria-hidden=true, ele fica oculto */
     .lead-modal[aria-hidden="true"] { display: none !important; }
   </style>
 </head>
@@ -658,9 +654,8 @@
         </div>
       </div>
 
-      <!-- HERO VIDEOS (NexGap + NexVIB + Core/Console) -->
+      <!-- HERO VIDEOS -->
       <div style="display:grid; gap:1rem;">
-        <!-- NexGap -->
         <div class="hero-video" aria-label="Vídeo institucional NexGAP">
           <video autoplay muted loop playsinline preload="metadata" poster="assets/video/nexgap-hero.jpg">
             <source src="assets/video/nexgap-hero.mp4" type="video/mp4" />
@@ -672,7 +667,6 @@
           </div>
         </div>
 
-        <!-- NexVIB -->
         <div class="hero-video" aria-label="Vídeo institucional NexVIB">
           <video autoplay muted loop playsinline preload="metadata" poster="assets/video/nexvib-hero.jpg">
             <source src="assets/video/nexvib-hero.mp4" type="video/mp4" />
@@ -684,7 +678,6 @@
           </div>
         </div>
 
-        <!-- Core + Console -->
         <div class="hero-video" aria-label="Vídeo institucional Core e Console">
           <video autoplay muted loop playsinline preload="metadata" poster="assets/video/core-console-hero.jpg">
             <source src="assets/video/core-console-hero.mp4" type="video/mp4" />
@@ -698,7 +691,6 @@
       </div>
     </section>
 
-    <!-- ✅ NOVA SEÇÃO: CONSOLE EM CAMPO -->
     <section class="console-video" id="console">
       <h2 class="section-title">Console FlynexPRO em Operação</h2>
       <p class="section-subtitle">
@@ -911,16 +903,16 @@
     Todos os direitos reservados.
   </footer>
 
-  <!-- ✅ Lead CTA + Modal -->
+  <!-- ✅ Lead CTA -->
   <button class="floating-cta" id="leadCta" type="button"
     aria-haspopup="dialog" aria-controls="leadModal" aria-expanded="false">
     Saiba Mais
   </button>
 
-  <!-- ✅ COMEÇA OCULTO (failsafe) -->
+  <!-- ✅ Modal (estado inicial: oculto via aria-hidden) -->
   <div class="lead-modal" id="leadModal"
        role="dialog" aria-modal="true" aria-label="Formulário de contato"
-       aria-hidden="true" style="display:none;">
+       aria-hidden="true">
     <div class="lead-modal-panel" role="document">
       <div class="lead-modal-head">
         <div>
@@ -1015,26 +1007,23 @@
     menuBtn.addEventListener("click", openDrawer);
     drawerClose.addEventListener("click", closeDrawer);
 
-    // fecha clicando fora
     drawer.addEventListener("click", (e) => {
       if (e.target === drawer) closeDrawer();
     });
 
-    // fecha ao clicar em link
     document.querySelectorAll(".drawer-link").forEach((a) => {
       a.addEventListener("click", closeDrawer);
     });
 
-    // ESC fecha drawer
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && drawer.classList.contains("open")) closeDrawer();
     });
   </script>
 
-  <!-- ✅ Lead Modal (JS separado) -->
+  <!-- ✅ Se você tiver um lead-modal.js funcional, pode manter -->
   <script src="assets/js/lead-modal.js"></script>
 
-  <!-- ✅ FAILSAFE JS: se o seu lead-modal.js não mexer no style, aqui garante -->
+  <!-- ✅ FAILSAFE: garante abrir/fechar mesmo se o JS externo falhar -->
   <script>
     (function () {
       const cta = document.getElementById("leadCta");
@@ -1043,32 +1032,37 @@
 
       if (!cta || !modal || !closeBtn) return;
 
-      function openLead() {
-        modal.style.display = "block";
-        modal.setAttribute("aria-hidden", "false");
-        cta.setAttribute("aria-expanded", "true");
-        document.body.style.overflow = "hidden";
+      function setOpen(isOpen) {
+        if (isOpen) {
+          modal.classList.add("open");              // compatível com CSS externo
+          modal.style.display = "flex";             // fallback se o CSS externo não tiver .open
+          modal.setAttribute("aria-hidden", "false");
+          cta.setAttribute("aria-expanded", "true");
+          document.body.style.overflow = "hidden";
+        } else {
+          modal.classList.remove("open");
+          modal.style.display = "";                 // volta para o CSS mandar
+          modal.setAttribute("aria-hidden", "true");
+          cta.setAttribute("aria-expanded", "false");
+          document.body.style.overflow = "";
+        }
       }
 
-      function closeLead() {
-        modal.style.display = "none";
-        modal.setAttribute("aria-hidden", "true");
-        cta.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
-      }
-
-      cta.addEventListener("click", openLead);
-      closeBtn.addEventListener("click", closeLead);
+      cta.addEventListener("click", () => setOpen(true));
+      closeBtn.addEventListener("click", () => setOpen(false));
 
       // clicar fora fecha
       modal.addEventListener("click", (e) => {
-        if (e.target === modal) closeLead();
+        if (e.target === modal) setOpen(false);
       });
 
-      // ESC fecha
+      // ESC fecha modal
       document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && modal.style.display === "block") closeLead();
+        if (e.key === "Escape" && modal.getAttribute("aria-hidden") === "false") setOpen(false);
       });
+
+      // garante que inicia fechado
+      setOpen(false);
     })();
   </script>
 </body>
