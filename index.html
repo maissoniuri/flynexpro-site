@@ -392,9 +392,7 @@
     /* ===============================
        NOVA SEÇÃO – VÍDEO DO CONSOLE (CAMPO)
        =============================== */
-    .console-video {
-      margin-top: 2.8rem;
-    }
+    .console-video { margin-top: 2.8rem; }
 
     .console-video-card {
       background: radial-gradient(circle at top, #1a2b3b 0, #05070a 60%);
@@ -428,7 +426,6 @@
       max-width: 52rem;
       margin: 0;
     }
-    /* =============================== */
 
     .grid-2 {
       display: grid;
@@ -443,16 +440,8 @@
       border: 1px solid var(--border);
     }
 
-    .card h3 {
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .card p {
-      font-size: 0.9rem;
-      color: var(--muted);
-      margin-bottom: 0.6rem;
-    }
+    .card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+    .card p { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.6rem; }
 
     .tag-list {
       display: flex;
@@ -469,11 +458,7 @@
       color: var(--muted);
     }
 
-    ul.checklist {
-      list-style: none;
-      font-size: 0.9rem;
-    }
-
+    ul.checklist { list-style: none; font-size: 0.9rem; }
     ul.checklist li {
       display: flex;
       align-items: flex-start;
@@ -481,7 +466,6 @@
       margin-bottom: 0.4rem;
       color: var(--muted);
     }
-
     ul.checklist li::before {
       content: "✔";
       color: var(--primary);
@@ -513,24 +497,12 @@
     }
 
     .product-card h3 { font-size: 1.05rem; }
+    .product-card p { font-size: 0.9rem; color: var(--muted); }
 
-    .product-card p {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .product-meta {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
+    .product-meta { font-size: 0.8rem; color: var(--muted); }
     .product-meta strong { color: var(--text); }
 
-    .product-footer {
-      margin-top: 0.3rem;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
+    .product-footer { margin-top: 0.3rem; font-size: 0.8rem; color: var(--muted); }
 
     .contact {
       margin-top: 2rem;
@@ -543,16 +515,8 @@
       gap: 1.4rem;
     }
 
-    .contact h3 {
-      font-size: 1.05rem;
-      margin-bottom: 0.3rem;
-    }
-
-    .contact p {
-      font-size: 0.9rem;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-    }
+    .contact h3 { font-size: 1.05rem; margin-bottom: 0.3rem; }
+    .contact p { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.5rem; }
 
     .contact-info { font-size: 0.85rem; color: var(--muted); }
     .contact-info div { margin-bottom: 0.35rem; }
@@ -577,28 +541,15 @@
 
     /* Responsivo */
     @media (max-width: 860px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-        padding-top: 0.8rem;
-        padding-bottom: 2rem;
-      }
-
+      .hero { grid-template-columns: minmax(0, 1fr); padding-top: 0.8rem; padding-bottom: 2rem; }
       .grid-2, .contact { grid-template-columns: minmax(0, 1fr); }
       .nav-links { display: none; }
       .menu-btn { display: inline-flex; }
-
-      main {
-        padding-inline: 1rem;
-        padding-top: 0.9rem;
-      }
-
+      main { padding-inline: 1rem; padding-top: 0.9rem; }
       .nav { padding-inline: 1rem; }
-
       .badge { margin-bottom: 0.55rem; }
       .hero h1 { margin-bottom: 0.55rem; }
       .hero p { margin-bottom: 1.1rem; }
-
-      /* leve ajuste do bloco do console no mobile */
       .console-video { margin-top: 2.2rem; }
       .console-video-overlay { padding: 1rem 1rem; }
     }
@@ -609,18 +560,9 @@
       .btn, .nav-links a::after, .menu-btn { transition: none; }
     }
 
-    /* ===============================
-       TEXTO JUSTIFICADO (PARÁGRAFOS)
-       - Desktop: justificado + hifenização
-       - Mobile: alinhado à esquerda (melhor leitura)
-       =============================== */
+    /* Texto justificado */
     @media (min-width: 768px) {
-      .hero p,
-      .card p,
-      .product-card p,
-      .contact p,
-      .section-subtitle,
-      .console-video-overlay p {
+      .hero p, .card p, .product-card p, .contact p, .section-subtitle, .console-video-overlay p {
         text-align: justify;
         text-justify: inter-word;
         hyphens: auto;
@@ -628,19 +570,16 @@
         text-align-last: left;
       }
     }
-
     @media (max-width: 767px) {
-      .hero p,
-      .card p,
-      .product-card p,
-      .contact p,
-      .section-subtitle,
-      .console-video-overlay p {
+      .hero p, .card p, .product-card p, .contact p, .section-subtitle, .console-video-overlay p {
         text-align: left;
         hyphens: none;
         -webkit-hyphens: none;
       }
     }
+
+    /* ✅ FAILSAFE: se o CSS externo falhar, o modal começa oculto */
+    .lead-modal[aria-hidden="true"] { display: none !important; }
   </style>
 </head>
 
@@ -972,13 +911,16 @@
     Todos os direitos reservados.
   </footer>
 
-  <!-- ✅ Lead CTA + Modal (HTML fica no index) -->
+  <!-- ✅ Lead CTA + Modal -->
   <button class="floating-cta" id="leadCta" type="button"
     aria-haspopup="dialog" aria-controls="leadModal" aria-expanded="false">
     Saiba Mais
   </button>
 
-  <div class="lead-modal" id="leadModal" role="dialog" aria-modal="true" aria-label="Formulário de contato">
+  <!-- ✅ COMEÇA OCULTO (failsafe) -->
+  <div class="lead-modal" id="leadModal"
+       role="dialog" aria-modal="true" aria-label="Formulário de contato"
+       aria-hidden="true" style="display:none;">
     <div class="lead-modal-panel" role="document">
       <div class="lead-modal-head">
         <div>
@@ -1083,7 +1025,7 @@
       a.addEventListener("click", closeDrawer);
     });
 
-    // ESC fecha
+    // ESC fecha drawer
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && drawer.classList.contains("open")) closeDrawer();
     });
@@ -1091,5 +1033,43 @@
 
   <!-- ✅ Lead Modal (JS separado) -->
   <script src="assets/js/lead-modal.js"></script>
+
+  <!-- ✅ FAILSAFE JS: se o seu lead-modal.js não mexer no style, aqui garante -->
+  <script>
+    (function () {
+      const cta = document.getElementById("leadCta");
+      const modal = document.getElementById("leadModal");
+      const closeBtn = document.getElementById("leadClose");
+
+      if (!cta || !modal || !closeBtn) return;
+
+      function openLead() {
+        modal.style.display = "block";
+        modal.setAttribute("aria-hidden", "false");
+        cta.setAttribute("aria-expanded", "true");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeLead() {
+        modal.style.display = "none";
+        modal.setAttribute("aria-hidden", "true");
+        cta.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      }
+
+      cta.addEventListener("click", openLead);
+      closeBtn.addEventListener("click", closeLead);
+
+      // clicar fora fecha
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeLead();
+      });
+
+      // ESC fecha
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.style.display === "block") closeLead();
+      });
+    })();
+  </script>
 </body>
 </html>
