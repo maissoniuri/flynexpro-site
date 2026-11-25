@@ -3,979 +3,947 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FlynexPRO | Plataforma de Monitoramento Industrial</title>
+  <title>FlynexPRO | Hardware, firmware e sistemas web para monitoramento</title>
 
-  <!-- SEO básico -->
-  <meta name="description" content="FlynexPRO é uma plataforma modular de monitoramento industrial para supervisão contínua de ativos críticos, com foco inicial em gap e vibração de blades em aerogeradores." />
-  <meta name="theme-color" content="#0b0e12" />
+  <meta name="description" content="A FlynexPRO desenvolve hardware próprio, firmware e sistemas web. Produtos: FlynexPRO CORE com NexGAP e NexVIB para aerogeradores, PhysioPRO para clínicas de fisioterapia e AgroGAD para mapeamento agrícola com drone." />
+  <meta name="theme-color" content="#0C1620" />
 
-  <!-- Open Graph / Social -->
-  <meta property="og:title" content="FlynexPRO | Plataforma de Monitoramento Industrial" />
-  <meta property="og:description" content="Plataforma modular para supervisão contínua de ativos críticos: hardware, firmware, comunicação e dados em um único ecossistema." />
+  <meta property="og:title" content="FlynexPRO | Do sensor ao software" />
+  <meta property="og:description" content="Monitoramento industrial com hardware próprio, gestão clínica para fisioterapia e mapeamento agrícola com drone. Tecnologia desenvolvida em Nova Mutum, MT." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="assets/og-flynexpro.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- ✅ Lead Modal (separado) -->
-  <link rel="stylesheet" href="assets/css/lead-modal.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --primary: #41b6e6;
-      --primary-dark: #247da0;
-      --bg: #0b0e12;
-      --bg-alt: #11151b;
-      --text: #f5f5f5;
-      --muted: #b3b3b3;
-      --card: #151a22;
+      --ink: #0C1620;
+      --ink-2: #112131;
+      --ink-3: #172B3E;
+      --line: rgba(170, 205, 228, 0.14);
+      --line-strong: rgba(170, 205, 228, 0.26);
+      --text: #EAF2F7;
+      --muted: #97AABA;
 
-      --border: rgba(255, 255, 255, 0.08);
-      --border-strong: rgba(255, 255, 255, 0.12);
-      --shadow: 0 18px 35px rgba(0, 0, 0, 0.7);
-      --radius-xl: 1.3rem;
-      --radius-lg: 1.1rem;
+      --ind: #41B6E6;   /* FlynexPRO CORE · industrial (cor da marca) */
+      --phy: #5ED6B4;   /* PhysioPRO · saúde */
+      --agr: #B9D24A;   /* AgroGAD · agro */
+
+      --wrap: 1160px;
+      --gutter: clamp(1.1rem, 4vw, 2rem);
+      --r-sm: 8px;
+      --r-md: 14px;
+      --r-lg: 22px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html:focus-within { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
 
     body {
-      background: radial-gradient(circle at top, #182231 0, #05070a 45%, #000 100%);
-      color: var(--text);
+      font-family: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-variation-settings: "wdth" 100;
+      font-size: 1.0625rem;
       line-height: 1.6;
+      color: var(--text);
+      background: var(--ink);
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
-    a { color: inherit; text-decoration: none; }
+    img, video, svg { display: block; max-width: 100%; }
+    [hidden] { display: none !important; }
+    a { color: inherit; }
+    button, input, select { font: inherit; color: inherit; }
 
-    /* Acessibilidade: skip link */
+    .wrap { max-width: var(--wrap); margin: 0 auto; padding-inline: var(--gutter); }
+
     .skip-link {
-      position: absolute;
-      left: 1rem;
-      top: 0.8rem;
+      position: absolute; left: 1rem; top: 0.8rem; z-index: 999;
       transform: translateY(-200%);
-      background: rgba(5, 7, 10, 0.95);
-      border: 1px solid var(--border-strong);
-      color: var(--text);
-      padding: 0.6rem 0.9rem;
-      border-radius: 999px;
-      z-index: 999;
-      transition: transform 0.15s ease;
+      background: var(--ink-2); border: 1px solid var(--line-strong);
+      padding: 0.6rem 0.9rem; border-radius: var(--r-sm); text-decoration: none;
     }
-    .skip-link:focus { transform: translateY(0); outline: none; }
+    .skip-link:focus { transform: none; }
 
-    /* Focus visível */
-    :focus-visible {
-      outline: 2px solid rgba(65, 182, 230, 0.8);
-      outline-offset: 3px;
-      border-radius: 10px;
+    :focus-visible { outline: 2px solid var(--ind); outline-offset: 3px; border-radius: 4px; }
+
+    /* ---------- Tipografia ---------- */
+    .display {
+      font-variation-settings: "wdth" 125;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.02;
     }
+    h2.display { font-size: clamp(2rem, 4.4vw, 3.25rem); }
+    h3 { font-size: 1.2rem; font-weight: 650; line-height: 1.3; }
+    .lede { font-size: 1.15rem; color: var(--muted); max-width: 38em; }
+    p { max-width: 65ch; }
+    .tnum { font-variant-numeric: tabular-nums; }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(5, 7, 10, 0.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    /* ---------- Botões ---------- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 46px; padding: 0.7rem 1.3rem;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--line-strong);
+      background: transparent;
+      font-weight: 600; font-size: 0.98rem;
+      text-decoration: none; cursor: pointer;
+      transition: background-color .15s ease, border-color .15s ease, color .15s ease;
     }
+    .btn:hover { border-color: var(--text); }
+    .btn-solid { background: var(--ind); border-color: var(--ind); color: #04121B; }
+    .btn-solid:hover { background: #6ccaf0; border-color: #6ccaf0; }
+    .btn-phy.btn-solid { background: var(--phy); border-color: var(--phy); }
+    .btn-phy.btn-solid:hover { background: #86e3c9; border-color: #86e3c9; }
+    .btn-agr.btn-solid { background: var(--agr); border-color: var(--agr); color: #141A04; }
+    .btn-agr.btn-solid:hover { background: #cde06f; border-color: #cde06f; }
 
-    .nav {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0.8rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
+    /* ---------- Header ---------- */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(12, 22, 32, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
     }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 68px; }
+    .brand { display: flex; align-items: center; text-decoration: none; }
+    .brand img { height: 38px; width: auto; }
+    .brand-word { font-variation-settings: "wdth" 125; font-weight: 750; font-size: 1.25rem; letter-spacing: -0.01em; }
+    .brand-word b { color: var(--ind); font-weight: 750; }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      min-width: 160px;
-    }
-
-    .logo img {
-      height: 40px;
-      width: auto;
-      display: block;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 1.2rem;
-      font-size: 0.9rem;
-      align-items: center;
-    }
-
+    .nav-links { display: flex; align-items: center; gap: 0.3rem; list-style: none; }
     .nav-links a {
-      color: var(--muted);
-      position: relative;
-      padding: 0.35rem 0;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 0.75rem; border-radius: var(--r-sm);
+      text-decoration: none; color: var(--muted); font-size: 0.95rem; font-weight: 500;
     }
+    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+    .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+    .dot-ind { background: var(--ind); }
+    .dot-phy { background: var(--phy); }
+    .dot-agr { background: var(--agr); }
+    .nav .btn { min-height: 40px; padding: 0.5rem 1rem; font-size: 0.92rem; }
 
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -0.2rem;
-      width: 0;
-      height: 2px;
-      background: var(--primary);
-      transition: width 0.2s ease;
-    }
+    .menu-btn { display: none; }
 
-    .nav-links a:hover::after { width: 100%; }
-
-    /* Botão menu mobile */
-    .menu-btn {
-      display: none;
-      border: 1px solid rgba(255,255,255,0.16);
-      background: rgba(21, 26, 34, 0.6);
-      color: var(--text);
-      border-radius: 999px;
-      padding: 0.55rem 0.9rem;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: transform 0.15s ease, border-color 0.15s ease;
-    }
-    .menu-btn:hover { transform: translateY(-1px); border-color: rgba(65,182,230,0.6); }
-
-    /* Drawer mobile */
-    .drawer {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.55);
-      display: none;
-      z-index: 200;
-    }
+    .drawer { position: fixed; inset: 0; z-index: 200; background: rgba(4, 9, 14, 0.6); display: none; }
     .drawer.open { display: block; }
     .drawer-panel {
-      position: absolute;
-      right: 0;
-      top: 0;
-      height: 100%;
-      width: min(360px, 92vw);
-      background: rgba(5, 7, 10, 0.96);
-      border-left: 1px solid rgba(255,255,255,0.10);
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
+      position: absolute; right: 0; top: 0; height: 100%; width: min(340px, 90vw);
+      background: var(--ink-2); border-left: 1px solid var(--line);
+      padding: 1rem; display: flex; flex-direction: column; gap: 0.4rem;
     }
-    .drawer-top {
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 0.8rem;
-      padding-bottom: 0.6rem;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+    .drawer-top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 0.8rem; margin-bottom: 0.4rem; border-bottom: 1px solid var(--line); }
+    .drawer a.drawer-link {
+      display: flex; align-items: center; gap: 0.7rem;
+      padding: 0.9rem 0.8rem; border-radius: var(--r-sm);
+      text-decoration: none; font-weight: 550;
     }
-    .drawer-title {
-      font-size: 0.95rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .drawer-close {
-      border: 1px solid rgba(255,255,255,0.16);
-      background: transparent;
-      color: var(--text);
-      border-radius: 999px;
-      padding: 0.45rem 0.8rem;
-      cursor: pointer;
-    }
-    .drawer a {
-      padding: 0.9rem 0.85rem;
-      border-radius: 0.9rem;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(21,26,34,0.45);
-      color: var(--text);
-    }
-    .drawer a:hover { border-color: rgba(65,182,230,0.55); }
+    .drawer a.drawer-link:hover { background: rgba(255,255,255,0.05); }
 
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 1.5rem 1.5rem 3rem;
+    /* ---------- Hero ---------- */
+    .hero { padding: clamp(3rem, 8vw, 6rem) 0 clamp(3rem, 6vw, 4.5rem); position: relative; overflow: hidden; }
+    .hero::before {
+      /* grade de instrumentação, discreta */
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse 70% 60% at 70% 30%, #000 10%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 70% 30%, #000 10%, transparent 75%);
+      opacity: 0.55;
     }
-
-    /* HERO */
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
-      gap: 2rem;
-      align-items: center;
-      padding: 2rem 0 3rem;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--muted);
-      margin-bottom: 0.8rem;
-    }
-
-    .badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--primary);
-      box-shadow: 0 0 18px rgba(65, 182, 230, 0.9);
-    }
-
+    .hero .wrap { position: relative; }
     .hero h1 {
-      font-size: clamp(2rem, 3.1vw, 2.6rem);
-      margin-bottom: 0.8rem;
-      line-height: 1.15;
-    }
-
-    .hero h1 span { color: var(--primary); }
-
-    .hero p {
-      color: var(--muted);
+      font-size: clamp(2.6rem, 7.2vw, 5.6rem);
+      max-width: 12.5em;
       margin-bottom: 1.4rem;
-      font-size: 0.98rem;
-      max-width: 36rem;
     }
+    .hero .lede { margin-bottom: 2rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.65rem 1.3rem;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      border: 1px solid transparent;
-      cursor: pointer;
-      background: transparent;
-      color: var(--text);
-      transition: all 0.18s ease;
-      user-select: none;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #000;
-      font-weight: 700;
-      box-shadow: 0 0 18px rgba(65, 182, 230, 0.65);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 0 26px rgba(65, 182, 230, 0.9);
-    }
-
-    .btn-outline {
-      border-color: rgba(255, 255, 255, 0.18);
-      color: var(--muted);
-    }
-
-    .btn-outline:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-      transform: translateY(-1px);
-    }
-
-    .hero-meta {
-      display: flex;
-      gap: 1.8rem;
-      flex-wrap: wrap;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .hero-meta strong {
-      display: block;
-      color: var(--text);
-      font-size: 0.9rem;
-    }
-
-    /* ===== HERO VIDEO ===== */
-    .hero-video {
-      background: radial-gradient(circle at top, #1a2b3b 0, #05070a 55%);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-strong);
-      box-shadow: var(--shadow);
-      position: relative;
+    /* Leituras: a assinatura da página */
+    .readouts {
+      margin-top: clamp(2.5rem, 6vw, 4rem);
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      border: 1px solid var(--line-strong);
+      border-radius: var(--r-lg);
+      background: rgba(17, 33, 49, 0.7);
       overflow: hidden;
-      aspect-ratio: 16 / 9;
     }
-
-    .hero-video::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at top, rgba(65, 182, 230, 0.18), transparent 60%);
-      opacity: 0.85;
-      pointer-events: none;
-      z-index: 1;
+    .readout {
+      --c: var(--ind);
+      display: grid; grid-template-rows: auto auto 1fr auto; gap: 0.35rem;
+      padding: 1.4rem 1.5rem 1.3rem;
+      text-decoration: none;
+      border-top: 3px solid var(--c);
+      transition: background-color .15s ease;
     }
-
-    .hero-video::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at top, rgba(65, 182, 230, 0.22), transparent 55%),
-        linear-gradient(to bottom, rgba(5, 7, 10, 0.10), rgba(5, 7, 10, 0.55));
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    .hero-video video {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      z-index: 0;
-    }
-
-    .hero-video-overlay {
-      position: absolute;
-      left: 1rem;
-      right: 1rem;
-      bottom: 1rem;
-      z-index: 3;
-    }
-
-    .hero-video-overlay h2 {
-      font-size: 1.05rem;
-      margin-bottom: 0.35rem;
-    }
-
-    .hero-video-overlay p {
-      font-size: 0.82rem;
-      color: var(--muted);
-      margin-bottom: 0;
-      max-width: 34rem;
-    }
-
-    section { padding: 2.5rem 0 0; }
-
-    h2.section-title {
-      font-size: 1.3rem;
-      margin-bottom: 0.2rem;
-    }
-
-    .section-subtitle {
-      font-size: 0.9rem;
-      color: var(--muted);
-      margin-bottom: 1.4rem;
-      max-width: 60rem;
-    }
-
-    .console-video { margin-top: 2.8rem; }
-
-    .console-video-card {
-      background: radial-gradient(circle at top, #1a2b3b 0, #05070a 60%);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-strong);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .console-video-card video {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
-    }
-
-    .console-video-overlay {
-      padding: 1.2rem 1.4rem;
-      background: linear-gradient(to top, rgba(5,7,10,0.75), rgba(5,7,10,0.15));
-    }
-
-    .console-video-overlay h3 {
-      font-size: 1.05rem;
-      margin-bottom: 0.3rem;
-    }
-
-    .console-video-overlay p {
-      font-size: 0.88rem;
-      color: var(--muted);
-      max-width: 52rem;
-      margin: 0;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.4fr);
-      gap: 1.8rem;
-    }
-
-    .card {
-      background: var(--card);
-      border-radius: var(--radius-lg);
-      padding: 1.3rem 1.3rem 1rem;
-      border: 1px solid var(--border);
-    }
-
-    .card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
-    .card p { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.6rem; }
-
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 0.3rem;
-    }
-
-    .tag {
-      font-size: 0.7rem;
-      padding: 0.15rem 0.55rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: var(--muted);
-    }
-
-    ul.checklist { list-style: none; font-size: 0.9rem; }
-    ul.checklist li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.4rem;
-      margin-bottom: 0.4rem;
-      color: var(--muted);
-    }
-    ul.checklist li::before {
-      content: "✔";
-      color: var(--primary);
-      font-size: 0.8rem;
-      margin-top: 0.05rem;
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .product-card {
-      background: var(--card);
-      border-radius: 1rem;
-      padding: 1.1rem 1.1rem 1rem;
-      border: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .product-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-    }
-
-    .product-card h3 { font-size: 1.05rem; }
-    .product-card p { font-size: 0.9rem; color: var(--muted); }
-
-    .product-meta { font-size: 0.8rem; color: var(--muted); }
-    .product-meta strong { color: var(--text); }
-
-    .product-footer { margin-top: 0.3rem; font-size: 0.8rem; color: var(--muted); }
-
-    .contact {
-      margin-top: 2rem;
-      background: rgba(5, 7, 12, 0.9);
-      border-radius: 1.2rem;
-      border: 1px solid var(--border-strong);
-      padding: 1.4rem 1.5rem;
-      display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
-      gap: 1.4rem;
-    }
-
-    .contact h3 { font-size: 1.05rem; margin-bottom: 0.3rem; }
-    .contact p { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.5rem; }
-
-    .contact-info { font-size: 0.85rem; color: var(--muted); }
-    .contact-info div { margin-bottom: 0.35rem; }
-    .contact-info span { color: var(--text); font-weight: 600; }
-
-    .contact-actions {
+    .readout + .readout { border-left: 1px solid var(--line); }
+    .readout:hover { background: rgba(255,255,255,0.03); }
+    .readout.phy { --c: var(--phy); }
+    .readout.agr { --c: var(--agr); }
+    .readout-logo { height: 30px; width: auto; max-width: 100%; object-fit: contain; object-position: left center; margin-bottom: 0.35rem; }
+    .readout-logo.phy { height: 40px; margin-top: -5px; margin-bottom: 0.05rem; }
+    .readout svg.readout-logo { width: auto; max-width: 100%; height: 30px; margin-top: 0; overflow: hidden; }
+    svg.product-logo.agr { width: min(380px, 100%); height: auto; }
+    .readout-logo.fly { height: 36px; margin-top: -4px; margin-bottom: 0.15rem; }
+    .readout-what { color: var(--muted); font-size: 0.9rem; }
+    .readout-value {
+      display: flex; align-items: baseline; gap: 0.4rem;
       margin-top: 0.9rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
+      font-variation-settings: "wdth" 112;
+      font-weight: 650; font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+      line-height: 1; font-variant-numeric: tabular-nums;
+      color: var(--c);
+    }
+    .readout-value small { font-size: 0.95rem; font-weight: 500; color: var(--muted); font-variation-settings: "wdth" 100; }
+    .readout svg { width: 100%; height: 56px; margin-top: 0.6rem; overflow: visible; }
+    .readout svg .trace { fill: none; stroke: var(--c); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .readout svg .base { stroke: var(--line-strong); stroke-width: 1; stroke-dasharray: 3 4; }
+    .readout svg .area { fill: var(--c); opacity: 0.08; }
+    .readout-go { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-top: 0.6rem; }
+    .readout:hover .readout-go { text-decoration: underline; text-underline-offset: 3px; }
+
+    /* único momento de animação: os traços são desenhados ao carregar */
+    @media (prefers-reduced-motion: no-preference) {
+      .readout svg .trace { stroke-dasharray: 600; stroke-dashoffset: 600; animation: draw 1.6s cubic-bezier(.4,0,.2,1) forwards; }
+      .readout:nth-child(2) svg .trace { animation-delay: .25s; }
+      .readout:nth-child(3) svg .trace { animation-delay: .5s; }
+      @keyframes draw { to { stroke-dashoffset: 0; } }
     }
 
-    footer {
-      padding: 1.6rem 1.5rem 1.8rem;
-      text-align: center;
-      font-size: 0.75rem;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
-      background: #000;
-      margin-top: 3rem;
-    }
+    /* ---------- Faixa "uma engenharia" ---------- */
+    .stack { border-block: 1px solid var(--line); background: var(--ink-2); }
+    .stack .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 2rem; padding-block: 2.4rem; align-items: start; }
+    .stack h2 { font-size: 1.35rem; font-weight: 650; line-height: 1.3; }
+    .stack ul { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.4rem; }
+    .stack li strong { display: block; font-weight: 650; margin-bottom: 0.2rem; }
+    .stack li span { color: var(--muted); font-size: 0.93rem; line-height: 1.5; display: block; }
 
-    /* Responsivo */
-    @media (max-width: 860px) {
-      .hero { grid-template-columns: minmax(0, 1fr); padding-top: 0.8rem; padding-bottom: 2rem; }
-      .grid-2, .contact { grid-template-columns: minmax(0, 1fr); }
-      .nav-links { display: none; }
-      .menu-btn { display: inline-flex; }
-      main { padding-inline: 1rem; padding-top: 0.9rem; }
-      .nav { padding-inline: 1rem; }
-      .badge { margin-bottom: 0.55rem; }
-      .hero h1 { margin-bottom: 0.55rem; }
-      .hero p { margin-bottom: 1.1rem; }
-      .console-video { margin-top: 2.2rem; }
-      .console-video-overlay { padding: 1rem 1rem; }
+    /* ---------- Seções de produto ---------- */
+    .product { padding: clamp(4rem, 9vw, 7rem) 0; position: relative; }
+    .product + .product { border-top: 1px solid var(--line); }
+    .product-head { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 2.5rem; align-items: end; margin-bottom: clamp(2.2rem, 5vw, 3.4rem); }
+    .product-tag {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; color: var(--muted);
     }
+    .product h2 { margin-bottom: 0; }
+    .product-logo { display: block; height: auto; width: auto; margin-bottom: 1.4rem; }
+    .product-logo.fly { max-height: 64px; }
+    .product-logo.phy { max-width: min(360px, 100%); }
+    .product-logo.agr { max-width: min(380px, 100%); }
+    h2.logo-title { line-height: 0; margin-bottom: 1.4rem; }
+    h2.logo-title .product-logo { margin-bottom: 0; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .product-head .lede { font-size: 1.08rem; }
 
-    /* Reduz animação para quem prefere */
-    @media (prefers-reduced-motion: reduce) {
-      html:focus-within { scroll-behavior: auto; }
-      .btn, .nav-links a::after, .menu-btn { transition: none; }
-    }
+    .feature-list { list-style: none; display: grid; gap: 0; }
+    .feature-list li { padding: 1rem 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 1rem; }
+    .feature-list li:last-child { border-bottom: 1px solid var(--line); }
+    .feature-list strong { font-weight: 650; }
+    .feature-list span { color: var(--muted); font-size: 0.98rem; }
 
-    /* Texto justificado */
-    @media (min-width: 768px) {
-      .hero p, .card p, .product-card p, .contact p, .section-subtitle, .console-video-overlay p {
-        text-align: justify;
-        text-justify: inter-word;
-        hyphens: auto;
-        -webkit-hyphens: auto;
-        text-align-last: left;
-      }
+    /* Industrial */
+    .industrial { background:
+      radial-gradient(ellipse 60% 50% at 85% 0%, rgba(65,182,230,0.10), transparent 70%); }
+    .pipeline {
+      list-style: none; counter-reset: step;
+      display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+      margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
     }
-    @media (max-width: 767px) {
-      .hero p, .card p, .product-card p, .contact p, .section-subtitle, .console-video-overlay p {
-        text-align: left;
-        hyphens: none;
-        -webkit-hyphens: none;
-      }
+    .pipeline li {
+      counter-increment: step;
+      position: relative; padding: 1.1rem 1.1rem 0 0;
+      border-top: 2px solid var(--line-strong);
     }
+    .pipeline li::before {
+      content: counter(step);
+      position: absolute; top: -13px; left: 0;
+      width: 24px; height: 24px; border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 0.78rem; font-weight: 700; font-variant-numeric: tabular-nums;
+      background: var(--ink); border: 2px solid var(--ind); color: var(--ind);
+    }
+    .pipeline li:last-child { border-top-color: var(--ind); }
+    .pipeline strong { display: block; font-weight: 650; margin: 0.3rem 0 0.25rem; }
+    .pipeline span { color: var(--muted); font-size: 0.92rem; line-height: 1.5; display: block; }
 
-    /* ✅ FAILSAFE: se o modal está aria-hidden=true, ele fica oculto */
+    .modules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; }
+    .module {
+      background: var(--ink-2); border: 1px solid var(--line);
+      border-radius: var(--r-md); overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .module.wide { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+    .media {
+      position: relative; aspect-ratio: 16 / 9; overflow: hidden;
+      background:
+        repeating-linear-gradient(90deg, rgba(65,182,230,0.06) 0 1px, transparent 1px 28px),
+        radial-gradient(circle at 30% 20%, #1c3a52, #0b1824 70%);
+    }
+    .module.wide .media { aspect-ratio: auto; min-height: 300px; }
+    .media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .module-body { padding: 1.4rem 1.5rem 1.5rem; }
+    .module-body h3 { margin-bottom: 0.45rem; }
+    .module-body h3 span { color: var(--ind); }
+    .module-body p { color: var(--muted); font-size: 0.98rem; margin-bottom: 0.9rem; }
+    .uses { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .uses li {
+      font-size: 0.84rem; padding: 0.25rem 0.65rem;
+      border-radius: 999px; border: 1px solid var(--line-strong); color: var(--muted);
+    }
+    .protocols { margin-top: 1.4rem; color: var(--muted); font-size: 0.95rem; }
+    .protocols strong { color: var(--text); font-weight: 600; }
+
+    /* PhysioPRO */
+    .health { background: radial-gradient(ellipse 55% 50% at 10% 10%, rgba(94,214,180,0.09), transparent 70%); }
+    .health .product-tag .dot, .agro .product-tag .dot { width: 10px; height: 10px; }
+    .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+    .split-actions { margin-top: 1.8rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+    .ui-mock {
+      background: #F4F8F7; color: #13302A;
+      border-radius: var(--r-lg);
+      padding: 1.4rem;
+      box-shadow: 0 30px 60px -30px rgba(0,0,0,0.8);
+      font-size: 0.92rem;
+    }
+    .ui-top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #DCE7E4; }
+    .ui-patient strong { display: block; font-size: 1rem; }
+    .ui-patient span { color: #5B7671; font-size: 0.85rem; }
+    .ui-pill { background: #0F6E56; color: #fff; font-size: 0.78rem; font-weight: 600; padding: 0.3rem 0.7rem; border-radius: 999px; white-space: nowrap; }
+    .ui-chart { padding: 1.1rem 0 0.6rem; }
+    .ui-chart-title { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 0.8rem; }
+    .ui-chart-title span { color: #0F6E56; font-variant-numeric: tabular-nums; }
+    .bars { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; align-items: end; height: 120px; }
+    .bars div { background: #A7DCCB; border-radius: 4px 4px 0 0; position: relative; }
+    .bars div:last-child { background: #0F6E56; }
+    .bars-x { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; margin-top: 6px; color: #5B7671; font-size: 0.75rem; text-align: center; font-variant-numeric: tabular-nums; }
+    .ui-soap { margin-top: 1rem; border: 1px solid #DCE7E4; border-radius: 10px; background: #fff; }
+    .ui-soap-row { display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.5rem; padding: 0.55rem 0.8rem; border-top: 1px solid #EEF3F2; }
+    .ui-soap-row:first-child { border-top: 0; }
+    .ui-soap-row b { color: #0F6E56; }
+    .ui-ai { margin-top: 0.8rem; display: flex; gap: 0.6rem; align-items: flex-start; background: #E3F4EE; border-radius: 10px; padding: 0.7rem 0.8rem; color: #24524A; font-size: 0.86rem; }
+    .ui-ai svg { flex: none; margin-top: 2px; }
+
+    .spotlight {
+      margin-top: clamp(3.5rem, 8vw, 5.5rem);
+      display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+      gap: clamp(2rem, 4vw, 3.5rem); align-items: center;
+    }
+    .spotlight .screen { margin: 0; }
+    .spot-text h3 {
+      font-variation-settings: "wdth" 115; font-weight: 700;
+      font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.15; letter-spacing: -0.01em;
+      margin-bottom: 0.9rem;
+    }
+    .spot-text > p { color: var(--muted); margin-bottom: 1.6rem; }
+    .mini-steps { list-style: none; counter-reset: s; display: grid; gap: 1rem; }
+    .mini-steps li { counter-increment: s; display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 0.8rem; align-items: start; }
+    .mini-steps li::before {
+      content: counter(s); width: 28px; height: 28px; border-radius: 50%;
+      display: grid; place-items: center; font-size: 0.82rem; font-weight: 700;
+      border: 2px solid var(--phy); color: var(--phy); font-variant-numeric: tabular-nums;
+    }
+    .mini-steps strong { display: block; font-weight: 650; }
+    .mini-steps span { color: var(--muted); font-size: 0.96rem; }
+
+    /* AgroGAD */
+    .agro { background: radial-gradient(ellipse 55% 50% at 90% 15%, rgba(185,210,74,0.08), transparent 70%); }
+    .screen {
+      margin: 0 0 clamp(2.2rem, 5vw, 3rem);
+      border: 1px solid var(--line-strong); border-radius: var(--r-lg);
+      background: var(--ink-2); overflow: hidden;
+      box-shadow: 0 40px 80px -40px rgba(0,0,0,0.9);
+    }
+    .screen-bar { display: flex; align-items: center; gap: 6px; padding: 0.7rem 1rem; border-bottom: 1px solid var(--line); }
+    .screen-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); }
+    .screen img { width: 100%; height: auto; }
+    .screen figcaption { padding: 0.9rem 1.2rem; color: var(--muted); font-size: 0.92rem; border-top: 1px solid var(--line); }
+    .feature-cols { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.6rem; }
+    .feature-cols li { border-top: 2px solid var(--agr); padding-top: 0.9rem; }
+    .feature-cols strong { display: block; font-weight: 650; margin-bottom: 0.25rem; }
+    .feature-cols span { color: var(--muted); font-size: 0.96rem; display: block; }
+
+    .invite {
+      margin-top: clamp(2.5rem, 5vw, 3.5rem);
+      display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 1.4rem 2rem; align-items: center;
+      padding: clamp(1.4rem, 3vw, 2rem);
+      border: 1px solid rgba(185, 210, 74, 0.35); border-radius: var(--r-lg);
+      background: rgba(185, 210, 74, 0.06);
+    }
+    .invite-icon {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: rgba(185, 210, 74, 0.14); color: var(--agr);
+    }
+    .invite h3 { font-size: 1.3rem; margin-bottom: 0.4rem; }
+    .invite p { color: var(--muted); }
+
+    /* ---------- Sobre ---------- */
+    .about { padding: clamp(4rem, 9vw, 6.5rem) 0; border-top: 1px solid var(--line); background: var(--ink-2); }
+    .about .split { align-items: center; }
+    .about h2 { margin-bottom: 1.2rem; }
+    .about p { color: var(--muted); margin-bottom: 1rem; }
+    .principles { list-style: none; display: grid; gap: 1rem; }
+    .principles li { padding: 1.2rem 1.3rem; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--ink); }
+    .principles strong { display: block; font-weight: 650; margin-bottom: 0.25rem; }
+    .principles span { color: var(--muted); font-size: 0.96rem; }
+
+    /* ---------- Contato ---------- */
+    .contact { padding: clamp(4rem, 9vw, 6.5rem) 0; }
+    .contact-box {
+      display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem);
+      border: 1px solid var(--line-strong); border-radius: var(--r-lg);
+      padding: clamp(1.6rem, 4vw, 3rem);
+      background: linear-gradient(135deg, rgba(65,182,230,0.10), rgba(17,33,49,0.6) 55%);
+    }
+    .contact h2 { margin-bottom: 1rem; }
+    .contact .lede { margin-bottom: 1.8rem; }
+    .contact-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .contact-info { list-style: none; display: grid; gap: 1.1rem; align-content: start; }
+    .contact-info li { display: grid; gap: 0.1rem; }
+    .contact-info span { color: var(--muted); font-size: 0.88rem; }
+    .contact-info a, .contact-info strong { font-weight: 600; font-size: 1.05rem; text-decoration: none; }
+    .contact-info a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+    /* ---------- Rodapé ---------- */
+    footer { border-top: 1px solid var(--line); padding: 2.2rem 0 2.6rem; color: var(--muted); font-size: 0.9rem; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem 2rem; }
+    footer nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; }
+    footer a { text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    /* ---------- Botão flutuante + modal de lead ---------- */
+    .floating-cta {
+      position: fixed; right: 1.2rem; bottom: 1.2rem; z-index: 90;
+      min-height: 48px; padding: 0.7rem 1.2rem;
+      border-radius: 999px; border: 1px solid var(--ind);
+      background: var(--ind); color: #04121B; font-weight: 700; cursor: pointer;
+      box-shadow: 0 12px 30px -10px rgba(65,182,230,0.7);
+    }
+    .floating-cta:hover { background: #6ccaf0; }
+
+    .lead-modal {
+      position: fixed; inset: 0; z-index: 300;
+      display: none; align-items: center; justify-content: center;
+      padding: 1rem; background: rgba(4, 9, 14, 0.7);
+    }
+    .lead-modal.open { display: flex; }
     .lead-modal[aria-hidden="true"] { display: none !important; }
+    .lead-modal-panel {
+      width: min(620px, 100%); max-height: calc(100dvh - 2rem); overflow: auto;
+      background: var(--ink-2); border: 1px solid var(--line-strong);
+      border-radius: var(--r-lg); padding: 1.6rem;
+    }
+    .lead-modal-head { display: flex; justify-content: space-between; gap: 1rem; align-items: flex-start; margin-bottom: 1.3rem; }
+    .lead-modal-title { font-size: 1.35rem; font-weight: 700; font-variation-settings: "wdth" 115; margin-bottom: 0.3rem; }
+    .lead-modal-sub { color: var(--muted); font-size: 0.95rem; }
+    .lead-modal-close {
+      border: 1px solid var(--line-strong); background: transparent; border-radius: var(--r-sm);
+      padding: 0.45rem 0.8rem; cursor: pointer; flex: none;
+    }
+    .lead-hidden { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .lead-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem 1rem; }
+    .field-full { grid-column: 1 / -1; }
+    .lead-grid .field { display: grid; gap: 0.3rem; }
+    .lead-grid label { font-size: 0.88rem; font-weight: 550; }
+    .lead-grid input, .lead-grid select {
+      width: 100%; min-height: 44px; padding: 0.55rem 0.75rem;
+      background: var(--ink); border: 1px solid var(--line-strong); border-radius: var(--r-sm);
+    }
+    .lead-grid input::placeholder { color: #5f7484; }
+    .lead-grid input:focus, .lead-grid select:focus { outline: 2px solid var(--ind); outline-offset: 0; border-color: transparent; }
+    .lead-actions { display: flex; align-items: center; gap: 1rem; margin-top: 1.3rem; flex-wrap: wrap; }
+    .lead-status { color: var(--muted); font-size: 0.92rem; }
+
+    /* ---------- Responsivo ---------- */
+    @media (max-width: 980px) {
+      .stack .wrap { grid-template-columns: 1fr; }
+      .stack ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pipeline { grid-template-columns: 1fr; gap: 0; border-left: 2px solid var(--line-strong); margin-left: 12px; }
+      .pipeline li { border-top: 0; padding: 0 0 1.4rem 1.6rem; }
+      .pipeline li::before { top: 0; left: -13px; }
+      .pipeline li:last-child { padding-bottom: 0; }
+    }
+    @media (max-width: 860px) {
+      .nav-links, .nav .btn-desktop { display: none; }
+      .menu-btn { display: inline-flex; }
+      .readouts { grid-template-columns: 1fr; }
+      .readout + .readout { border-left: 0; border-top-width: 3px; }
+      .product-head, .split, .contact-box { grid-template-columns: 1fr; }
+      .product-head { gap: 1.2rem; }
+      .modules, .module.wide { grid-template-columns: 1fr; }
+      .module.wide .media { min-height: 0; aspect-ratio: 16 / 9; }
+      .feature-list li { grid-template-columns: 1fr; gap: 0.2rem; }
+      .feature-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .spotlight { grid-template-columns: 1fr; }
+      .invite { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      body { font-size: 1rem; }
+      .stack ul { grid-template-columns: 1fr; }
+      .feature-cols { grid-template-columns: 1fr; }
+      .lead-grid { grid-template-columns: 1fr; }
+      .floating-cta { right: 0.8rem; bottom: 0.8rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .btn, .readout { transition: none; }
+    }
   </style>
 </head>
 
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
-  <header>
-    <div class="nav">
-      <div class="logo">
-        <img src="Logo.png" alt="FlynexPRO" />
-      </div>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="#topo" aria-label="FlynexPRO, início">
+        <img src="Logo.png" alt="FlynexPRO" onerror="this.hidden=true; this.nextElementSibling.hidden=false;" />
+        <span class="brand-word" hidden>Flynex<b>PRO</b></span>
+      </a>
 
-      <nav class="nav-links" aria-label="Navegação principal">
-        <a href="#sobre">Sobre</a>
-        <a href="#plataforma">Plataforma</a>
-        <a href="#modulos">Módulos</a>
-        <a href="#contato">Contato</a>
+      <nav aria-label="Navegação principal">
+        <ul class="nav-links">
+          <li><a href="#industrial"><i class="dot dot-ind"></i>Industrial</a></li>
+          <li><a href="#physiopro"><i class="dot dot-phy"></i>PhysioPRO</a></li>
+          <li><a href="#agrogad"><i class="dot dot-agr"></i>AgroGAD</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
       </nav>
 
-      <button class="menu-btn" type="button" aria-haspopup="dialog" aria-controls="drawer" aria-expanded="false" id="menuBtn">
-        Menu
-      </button>
+      <a class="btn btn-solid btn-desktop" href="#contato">Falar com a equipe</a>
+
+      <button class="btn menu-btn" type="button" aria-haspopup="dialog" aria-controls="drawer" aria-expanded="false" id="menuBtn">Menu</button>
     </div>
   </header>
 
-  <!-- Drawer mobile -->
   <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
     <div class="drawer-panel">
       <div class="drawer-top">
-        <div class="drawer-title">FlynexPRO</div>
-        <button class="drawer-close" type="button" id="drawerClose">Fechar</button>
+        <span class="brand-word">Flynex<b>PRO</b></span>
+        <button class="btn" type="button" id="drawerClose">Fechar</button>
       </div>
-      <a href="#sobre" class="drawer-link">Sobre</a>
-      <a href="#plataforma" class="drawer-link">Plataforma</a>
-      <a href="#modulos" class="drawer-link">Módulos</a>
+      <a href="#industrial" class="drawer-link"><i class="dot dot-ind"></i>Industrial: CORE, NexGAP e NexVIB</a>
+      <a href="#physiopro" class="drawer-link"><i class="dot dot-phy"></i>PhysioPRO</a>
+      <a href="#agrogad" class="drawer-link"><i class="dot dot-agr"></i>AgroGAD</a>
+      <a href="#sobre" class="drawer-link">Sobre a FlynexPRO</a>
       <a href="#contato" class="drawer-link">Contato</a>
     </div>
   </div>
 
   <main id="conteudo">
     <!-- HERO -->
-    <section class="hero">
-      <div>
-        <div class="badge">
-          <div class="badge-dot"></div>
-          Plataforma de monitoramento industrial
-        </div>
-
-        <h1>
-          FlynexPRO<br />
-          <span>Plataforma de Monitoramento Industrial</span>
-        </h1>
-
-        <p>
-          A FlynexPRO é uma <strong>plataforma modular</strong> para supervisão contínua de ativos críticos,
-          integrando <strong>hardware</strong>, <strong>firmware</strong>, <strong>comunicação</strong> e
-          <strong>dados</strong> em um único ecossistema. Foco inicial em <strong>gap</strong> e
-          <strong>vibração de blades</strong> em aerogeradores, com evolução para múltiplas aplicações de
-          manutenção preditiva.
+    <section class="hero" id="topo">
+      <div class="wrap">
+        <h1 class="display">Do sensor ao software, sistemas que medem o que importa.</h1>
+        <p class="lede">
+          A FlynexPRO desenvolve hardware próprio, firmware e sistemas web. Monitoramos pás de aerogeradores,
+          organizamos o atendimento de clínicas de fisioterapia e mapeamos lavouras com drone.
         </p>
-
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#plataforma">Ver a plataforma</a>
-          <a class="btn btn-outline" href="#contato">Falar com a FlynexPRO</a>
+          <a class="btn btn-solid" href="#industrial">Conhecer os produtos</a>
+          <a class="btn" href="#contato">Falar com a equipe</a>
         </div>
 
-        <div class="hero-meta">
-          <div>
-            <strong>Monitoramento especializado</strong>
-            Gap, vibração e grandezas críticas em tempo real.
-          </div>
-          <div>
-            <strong>Arquitetura de plataforma</strong>
-            Módulos integrados a um núcleo comum de dados e comunicação.
-          </div>
+        <div class="readouts" aria-label="Produtos FlynexPRO">
+          <a class="readout ind" href="#industrial">
+            <img class="readout-logo fly" src="assets/img/ChatGPT_Image_3_de_fev._de_2026_11_17_40.png" alt="FlynexPRO CORE" width="64" height="30" />
+            <span class="readout-what">Gap e vibração de pás em aerogeradores</span>
+            <span class="readout-value tnum">11,8<small>mm de gap, pá B</small></span>
+            <svg viewBox="0 0 300 56" preserveAspectRatio="none" aria-hidden="true">
+              <line class="base" x1="0" y1="30" x2="300" y2="30" />
+              <path class="trace" d="M0 30 C 15 18, 25 18, 37 30 S 60 42, 75 30 S 98 16, 112 30 S 135 44, 150 30 S 172 18, 187 30 S 210 43, 225 30 S 246 14, 262 30 S 285 41, 300 30" />
+            </svg>
+            <span class="readout-go">Ver monitoramento industrial</span>
+          </a>
+
+          <a class="readout phy" href="#physiopro">
+            <img class="readout-logo phy" src="assets/img/logo.PNG" alt="PhysioPRO" width="180" height="40" />
+            <span class="readout-what">Gestão clínica para fisioterapia</span>
+            <span class="readout-value tnum">8 → 2<small>dor (EVA) em 8 sessões</small></span>
+            <svg viewBox="0 0 300 56" preserveAspectRatio="none" aria-hidden="true">
+              <path class="area" d="M0 6 L43 12 L86 14 L129 22 L172 30 L215 38 L258 44 L300 48 L300 56 L0 56 Z" />
+              <path class="trace" d="M0 6 L43 12 L86 14 L129 22 L172 30 L215 38 L258 44 L300 48" />
+            </svg>
+            <span class="readout-go">Ver o PhysioPRO</span>
+          </a>
+
+          <a class="readout agr" href="#agrogad">
+            <svg class="readout-logo" role="img" aria-label="AgroGAD" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.00 80.00"><g transform="translate(4.00 4.00) scale(0.7200)"><defs><clipPath id="agr-clip-1"><polygon points="8,36 50,8 93,28 86,88 18,76"/></clipPath></defs><g clip-path="url(#agr-clip-1)"><g transform="rotate(18)"><rect x="17.73" y="-200" width="15.87" height="400" fill="#EB140A"/><rect x="36.83" y="-200" width="15.87" height="400" fill="#FF730A"/><rect x="55.93" y="-200" width="15.87" height="400" fill="#FAE114"/><rect x="75.02" y="-200" width="15.87" height="400" fill="#8CEB1F"/><rect x="94.12" y="-200" width="15.87" height="400" fill="#1FC72A"/></g></g></g><g transform="translate(98.00 18.00) scale(1.0000)" fill="#FFFFFF" fill-rule="evenodd"><path d="M5.50 0.00H44.50A5.5 5.5 0 0 1 50.00 5.50V9.30H0.00V5.50A5.5 5.5 0 0 1 5.50 0.00Z"/><path d="M5.50 0.00H9.30V44.00H0.00V5.50A5.5 5.5 0 0 1 5.50 0.00Z"/><path d="M40.70 0.00H44.50A5.5 5.5 0 0 1 50.00 5.50V44.00H40.70V0.00Z"/><path d="M8.30 24.00H41.70V33.30H8.30V24.00Z"/><path d="M64.50 0.00H105.50A5.5 5.5 0 0 1 111.00 5.50V9.30H59.00V5.50A5.5 5.5 0 0 1 64.50 0.00Z"/><path d="M64.50 0.00H68.30V44.00H64.50A5.5 5.5 0 0 1 59.00 38.50V5.50A5.5 5.5 0 0 1 64.50 0.00Z"/><path d="M59.00 34.70H111.00V38.50A5.5 5.5 0 0 1 105.50 44.00H64.50A5.5 5.5 0 0 1 59.00 38.50V34.70Z"/><path d="M101.70 22.00H111.00V38.50A5.5 5.5 0 0 1 105.50 44.00H101.70V22.00Z"/><path d="M83.96 22.00H111.00V31.30H83.96V22.00Z"/><path d="M122.00 0.00H163.50A5.5 5.5 0 0 1 169.00 5.50V9.30H121.50A1.5 1.5 0 0 1 120.00 7.80V2.00A2 2 0 0 1 122.00 0.00Z"/><path d="M159.70 0.00H163.50A5.5 5.5 0 0 1 169.00 5.50V27.00H159.70V0.00Z"/><path d="M137.20 22.6H169.00V26C169.00 31 164.50 34.5 159.70 34.5L167.80 44.0H154.30Z"/><path d="M184.00 0.00H224.00A6 6 0 0 1 230.00 6.00V38.00A6 6 0 0 1 224.00 44.00H184.00A6 6 0 0 1 178.00 38.00V6.00A6 6 0 0 1 184.00 0.00ZM188.80 9.30H219.20A1.5 1.5 0 0 1 220.70 10.80V33.20A1.5 1.5 0 0 1 219.20 34.70H188.80A1.5 1.5 0 0 1 187.30 33.20V10.80A1.5 1.5 0 0 1 188.80 9.30Z"/></g><g transform="translate(98.00 18.00) scale(1.0000)" fill="#22B33A" fill-rule="evenodd"><path d="M244.50 0.00H285.50A5.5 5.5 0 0 1 291.00 5.50V9.30H239.00V5.50A5.5 5.5 0 0 1 244.50 0.00Z"/><path d="M244.50 0.00H248.30V44.00H244.50A5.5 5.5 0 0 1 239.00 38.50V5.50A5.5 5.5 0 0 1 244.50 0.00Z"/><path d="M239.00 34.70H291.00V38.50A5.5 5.5 0 0 1 285.50 44.00H244.50A5.5 5.5 0 0 1 239.00 38.50V34.70Z"/><path d="M281.70 22.00H291.00V38.50A5.5 5.5 0 0 1 285.50 44.00H281.70V22.00Z"/><path d="M263.96 22.00H291.00V31.30H263.96V22.00Z"/><path d="M305.50 0.00H344.50A5.5 5.5 0 0 1 350.00 5.50V9.30H300.00V5.50A5.5 5.5 0 0 1 305.50 0.00Z"/><path d="M305.50 0.00H309.30V44.00H300.00V5.50A5.5 5.5 0 0 1 305.50 0.00Z"/><path d="M340.70 0.00H344.50A5.5 5.5 0 0 1 350.00 5.50V44.00H340.70V0.00Z"/><path d="M308.30 24.00H341.70V33.30H308.30V24.00Z"/><path d="M361.50 0.00H396.00A14 14 0 0 1 410.00 14.00V30.00A14 14 0 0 1 396.00 44.00H361.50A2.5 2.5 0 0 1 359.00 41.50V2.50A2.5 2.5 0 0 1 361.50 0.00ZM368.30 9.30H394.70A6 6 0 0 1 400.70 15.30V28.70A6 6 0 0 1 394.70 34.70H368.30V9.30Z"/></g></svg>
+            <span class="readout-what">Mapeamento agrícola com drone</span>
+            <span class="readout-value tnum">0,78<small>NDVI médio do talhão</small></span>
+            <svg viewBox="0 0 300 56" preserveAspectRatio="none" aria-hidden="true">
+              <path class="trace" d="M0 40 C 30 36, 50 22, 80 20 S 120 14, 140 16 L 150 44 L 160 16 S 220 10, 250 12 S 285 14, 300 14" />
+            </svg>
+            <span class="readout-go">Ver o AgroGAD</span>
+          </a>
         </div>
       </div>
+    </section>
 
-      <!-- HERO VIDEOS -->
-      <div style="display:grid; gap:1rem;">
-        <div class="hero-video" aria-label="Vídeo institucional NexGAP">
-          <video autoplay muted loop playsinline preload="metadata" poster="assets/video/nexgap-hero.jpg">
-            <source src="assets/video/nexgap-hero.mp4" type="video/mp4" />
-            Seu navegador não suporta vídeo HTML5.
-          </video>
-          <div class="hero-video-overlay">
-            <h2>NexGAP</h2>
-            <p>Módulo da plataforma para monitoramento de gap de blades.</p>
+    <!-- UMA ENGENHARIA -->
+    <section class="stack" aria-labelledby="stack-title">
+      <div class="wrap">
+        <h2 id="stack-title">Três produtos, a mesma engenharia por trás.</h2>
+        <ul>
+          <li><strong>Hardware próprio</strong><span>Módulos de aquisição projetados para ambiente industrial.</span></li>
+          <li><strong>Firmware embarcado</strong><span>Filtragem, calibração e diagnóstico direto no equipamento.</span></li>
+          <li><strong>Sistemas web</strong><span>Painéis, relatórios e acesso de qualquer dispositivo.</span></li>
+          <li><strong>Dados integrados</strong><span>Modbus TCP, MQTT e APIs para conversar com outros sistemas.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- INDUSTRIAL -->
+    <section class="product industrial" id="industrial" aria-labelledby="ind-title">
+      <div class="wrap">
+        <div class="product-head">
+          <div>
+            <img class="product-logo fly" src="assets/img/ChatGPT_Image_3_de_fev._de_2026_11_17_40.png" alt="" width="136" height="64" />
+            <div class="product-tag"><i class="dot dot-ind"></i>Monitoramento industrial</div>
+            <h2 class="display" id="ind-title">FlynexPRO CORE com NexGAP e NexVIB</h2>
+          </div>
+          <p class="lede">
+            Supervisão contínua das pás de aerogeradores, independente da lógica de controle da turbina e do SCADA
+            principal. O CORE reúne os dados; os módulos NexGAP e NexVIB fazem a medição.
+          </p>
+        </div>
+
+        <ol class="pipeline" aria-label="Como o dado chega até a equipe">
+          <li><strong>Sensores</strong><span>Medição de gap e vibração em cada pá.</span></li>
+          <li><strong>Edge</strong><span>Firmware filtra, calibra e faz o diagnóstico local.</span></li>
+          <li><strong>Conectividade</strong><span>Modbus TCP, MQTT ou API, conforme a planta.</span></li>
+          <li><strong>CORE</strong><span>Histórico, eventos, alarmes e exportação.</span></li>
+          <li><strong>Console</strong><span>Supervisão web no escritório ou no tablet, na torre.</span></li>
+        </ol>
+
+        <div class="modules">
+          <article class="module">
+            <div class="media">
+              <video autoplay muted loop playsinline preload="metadata" poster="assets/video/nexgap-hero.jpg" aria-label="Vídeo do NexGAP">
+                <source src="assets/video/nexgap-hero.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="module-body">
+              <h3><span>NexGAP</span>, gap entre pás</h3>
+              <p>Mede em tempo real o gap entre as pás e funciona como uma camada extra de supervisão, separada do controle da turbina.</p>
+              <ul class="uses" aria-label="Aplicações do NexGAP">
+                <li>Desalinhamento de pás</li>
+                <li>Variação de gap</li>
+                <li>Manutenção de pitch</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="module">
+            <div class="media">
+              <video autoplay muted loop playsinline preload="metadata" poster="assets/video/nexvib-hero.jpg" aria-label="Vídeo do NexVIB">
+                <source src="assets/video/nexvib-hero.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="module-body">
+              <h3><span>NexVIB</span>, vibração por pá</h3>
+              <p>Coleta a vibração estrutural de cada pá com processamento local e envia ao CORE para análise e correlação com o gap.</p>
+              <ul class="uses" aria-label="Aplicações do NexVIB">
+                <li>Trincas em estágio inicial</li>
+                <li>Ressonância anormal</li>
+                <li>Carga dinâmica</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="module wide">
+            <div class="media">
+              <video autoplay muted loop playsinline preload="metadata" poster="assets/video/console-campo.jpg" aria-label="Vídeo do Console em uso no tablet durante manutenção">
+                <source src="assets/video/console-campo.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="module-body">
+              <h3><span>Console</span>, a supervisão no campo</h3>
+              <p>
+                Painéis por ativo, alarmes configuráveis, histórico e tendência. Durante a manutenção na torre, a equipe
+                vê o estado dos dispositivos e os alarmes no tablet, sem depender da sala de controle.
+              </p>
+              <ul class="uses" aria-label="Recursos do Console">
+                <li>Alarmes configuráveis</li>
+                <li>Histórico e tendência</li>
+                <li>Registro de eventos</li>
+                <li>Exportação de dados</li>
+              </ul>
+              <p class="protocols"><strong>Integra com</strong> SCADA, BI e sistemas corporativos quando necessário.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="split-actions">
+          <button class="btn btn-solid" type="button" data-lead="industrial">Pedir apresentação técnica</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHYSIOPRO -->
+    <section class="product health" id="physiopro" aria-labelledby="phy-title">
+      <div class="wrap">
+        <div class="split">
+          <div>
+            <div class="product-tag"><i class="dot dot-phy"></i>Saúde</div>
+            <h2 class="logo-title" id="phy-title"><img class="product-logo phy" src="assets/img/logo.PNG" alt="PhysioPRO, cuidado inteligente" width="360" height="80" /></h2>
+            <p class="lede" style="margin-bottom:2rem">
+              Sistema web para clínicas e fisioterapeutas. Da avaliação à alta, cada etapa do atendimento fica
+              registrada, e o paciente acompanha a própria evolução em relatórios claros.
+            </p>
+
+            <ul class="feature-list">
+              <li><strong>Fluxo clínico guiado</strong><span>Avaliação, plano de tratamento, evoluções e alta em uma sequência só.</span></li>
+              <li><strong>Avaliações e escalas</strong><span>Fichas por especialidade, como pélvica e escoliose, com escalas pontuadas automaticamente.</span></li>
+              <li><strong>Evolução com IA</strong><span>Sugestões de texto na evolução SOAP. O fisioterapeuta revisa e decide.</span></li>
+              <li><strong>Relatórios em PDF</strong><span>Com assinatura digital, prontos para o paciente ou o médico.</span></li>
+              <li><strong>Equipe e unidades</strong><span>Vários profissionais e unidades, com permissões por perfil.</span></li>
+            </ul>
+
+            <div class="split-actions">
+              <button class="btn btn-solid btn-phy" type="button" data-lead="physiopro">Agendar demonstração</button>
+            </div>
+          </div>
+
+          <div class="ui-mock" role="img" aria-label="Ilustração da tela de evolução do paciente no PhysioPRO">
+            <div class="ui-top">
+              <div class="ui-patient">
+                <strong>Paciente exemplo</strong>
+                <span>Lombalgia, sessão 8 de 10</span>
+              </div>
+              <span class="ui-pill">Em tratamento</span>
+            </div>
+            <div class="ui-chart">
+              <div class="ui-chart-title">Dor (EVA) por sessão <span>−75%</span></div>
+              <div class="bars" aria-hidden="true">
+                <div style="height:80%"></div><div style="height:70%"></div><div style="height:70%"></div><div style="height:55%"></div>
+                <div style="height:45%"></div><div style="height:35%"></div><div style="height:28%"></div><div style="height:20%"></div>
+              </div>
+              <div class="bars-x" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
+            </div>
+            <div class="ui-soap">
+              <div class="ui-soap-row"><b>S</b><span>Relata melhora para sentar e dirigir.</span></div>
+              <div class="ui-soap-row"><b>O</b><span>Flexão lombar sem dor até 60°.</span></div>
+              <div class="ui-soap-row"><b>A</b><span>Boa resposta ao fortalecimento.</span></div>
+              <div class="ui-soap-row"><b>P</b><span>Progredir carga na próxima sessão.</span></div>
+            </div>
+            <div class="ui-ai">
+              <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.6 4.4L14 7l-4.4 1.6L8 13l-1.6-4.4L2 7l4.4-1.6z" fill="#0F6E56"/></svg>
+              <span>Sugestão: registrar reavaliação funcional na sessão 10.</span>
+            </div>
           </div>
         </div>
 
-        <div class="hero-video" aria-label="Vídeo institucional NexVIB">
-          <video autoplay muted loop playsinline preload="metadata" poster="assets/video/nexvib-hero.jpg">
-            <source src="assets/video/nexvib-hero.mp4" type="video/mp4" />
-            Seu navegador não suporta vídeo HTML5.
-          </video>
-          <div class="hero-video-overlay">
-            <h2>NexVIB</h2>
-            <p>Módulo da plataforma para vibração estrutural por pá.</p>
-          </div>
-        </div>
+        <div class="spotlight">
+          <figure class="screen">
+            <div class="screen-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+            <img src="assets/img/1795608064924_image.png" width="1124" height="845" loading="lazy"
+                 alt="Tela de avaliação de escoliose no PhysioPRO: raio-X da coluna com as retas das vértebras superior e inferior e o ângulo de Cobb de 23 graus calculado." />
+            <figcaption>Avaliação de escoliose no PhysioPRO, com o ângulo de Cobb medido sobre o raio-X.</figcaption>
+          </figure>
 
-        <div class="hero-video" aria-label="Vídeo institucional Core e Console">
-          <video autoplay muted loop playsinline preload="metadata" poster="assets/video/core-console-hero.jpg">
-            <source src="assets/video/core-console-hero.mp4" type="video/mp4" />
-            Seu navegador não suporta vídeo HTML5.
-          </video>
-          <div class="hero-video-overlay">
-            <h2>Core + Console</h2>
-            <p>Núcleo de dados, APIs e supervisão web para gestão de dispositivos, alarmes e histórico.</p>
+          <div class="spot-text">
+            <h3>Ângulo de Cobb medido no próprio raio-X</h3>
+            <p>
+              Na avaliação de escoliose, o fisioterapeuta marca as vértebras no raio-X e o PhysioPRO calcula o
+              ângulo de Cobb na hora. O resultado fica salvo no histórico do paciente.
+            </p>
+            <ol class="mini-steps">
+              <li><div><strong>Envie o raio-X</strong><span>Faça o upload da imagem do exame.</span></div></li>
+              <li><div><strong>Marque as vértebras</strong><span>Arraste os pontos para ajustar as retas superior e inferior.</span></div></li>
+              <li><div><strong>Registre os dados</strong><span>O ângulo entra na avaliação e no relatório em PDF.</span></div></li>
+            </ol>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="console-video" id="console">
-      <h2 class="section-title">Console FlynexPRO em Operação</h2>
-      <p class="section-subtitle">
-        Supervisão prática e acesso imediato às informações durante períodos de manutenção em campo.
-      </p>
-
-      <div class="console-video-card" aria-label="Vídeo do Console em operação no iPad">
-        <video autoplay muted loop playsinline preload="metadata" poster="assets/video/console-campo.jpg">
-          <source src="assets/video/console-campo.mp4" type="video/mp4" />
-          Seu navegador não suporta vídeo HTML5.
-        </video>
-
-        <div class="console-video-overlay">
-          <h3>Praticidade durante manutenção nas torres</h3>
-          <p>
-            O Console FlynexPRO permite que equipes de manutenção visualizem, em tempo real,
-            o estado dos dispositivos, histórico e alarmes diretamente no campo, reduzindo
-            tempo de diagnóstico e aumentando a segurança operacional durante intervenções
-            em aerogeradores.
+    <!-- AGROGAD -->
+    <section class="product agro" id="agrogad" aria-labelledby="agr-title">
+      <div class="wrap">
+        <div class="product-head">
+          <div>
+            <div class="product-tag"><i class="dot dot-agr"></i>Agro</div>
+            <h2 class="logo-title" id="agr-title"><svg class="product-logo agr" role="img" aria-label="AgroGAD" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.00 80.00"><g transform="translate(4.00 4.00) scale(0.7200)"><defs><clipPath id="agr-clip-2"><polygon points="8,36 50,8 93,28 86,88 18,76"/></clipPath></defs><g clip-path="url(#agr-clip-2)"><g transform="rotate(18)"><rect x="17.73" y="-200" width="15.87" height="400" fill="#EB140A"/><rect x="36.83" y="-200" width="15.87" height="400" fill="#FF730A"/><rect x="55.93" y="-200" width="15.87" height="400" fill="#FAE114"/><rect x="75.02" y="-200" width="15.87" height="400" fill="#8CEB1F"/><rect x="94.12" y="-200" width="15.87" height="400" fill="#1FC72A"/></g></g></g><g transform="translate(98.00 18.00) scale(1.0000)" fill="#FFFFFF" fill-rule="evenodd"><path d="M5.50 0.00H44.50A5.5 5.5 0 0 1 50.00 5.50V9.30H0.00V5.50A5.5 5.5 0 0 1 5.50 0.00Z"/><path d="M5.50 0.00H9.30V44.00H0.00V5.50A5.5 5.5 0 0 1 5.50 0.00Z"/><path d="M40.70 0.00H44.50A5.5 5.5 0 0 1 50.00 5.50V44.00H40.70V0.00Z"/><path d="M8.30 24.00H41.70V33.30H8.30V24.00Z"/><path d="M64.50 0.00H105.50A5.5 5.5 0 0 1 111.00 5.50V9.30H59.00V5.50A5.5 5.5 0 0 1 64.50 0.00Z"/><path d="M64.50 0.00H68.30V44.00H64.50A5.5 5.5 0 0 1 59.00 38.50V5.50A5.5 5.5 0 0 1 64.50 0.00Z"/><path d="M59.00 34.70H111.00V38.50A5.5 5.5 0 0 1 105.50 44.00H64.50A5.5 5.5 0 0 1 59.00 38.50V34.70Z"/><path d="M101.70 22.00H111.00V38.50A5.5 5.5 0 0 1 105.50 44.00H101.70V22.00Z"/><path d="M83.96 22.00H111.00V31.30H83.96V22.00Z"/><path d="M122.00 0.00H163.50A5.5 5.5 0 0 1 169.00 5.50V9.30H121.50A1.5 1.5 0 0 1 120.00 7.80V2.00A2 2 0 0 1 122.00 0.00Z"/><path d="M159.70 0.00H163.50A5.5 5.5 0 0 1 169.00 5.50V27.00H159.70V0.00Z"/><path d="M137.20 22.6H169.00V26C169.00 31 164.50 34.5 159.70 34.5L167.80 44.0H154.30Z"/><path d="M184.00 0.00H224.00A6 6 0 0 1 230.00 6.00V38.00A6 6 0 0 1 224.00 44.00H184.00A6 6 0 0 1 178.00 38.00V6.00A6 6 0 0 1 184.00 0.00ZM188.80 9.30H219.20A1.5 1.5 0 0 1 220.70 10.80V33.20A1.5 1.5 0 0 1 219.20 34.70H188.80A1.5 1.5 0 0 1 187.30 33.20V10.80A1.5 1.5 0 0 1 188.80 9.30Z"/></g><g transform="translate(98.00 18.00) scale(1.0000)" fill="#22B33A" fill-rule="evenodd"><path d="M244.50 0.00H285.50A5.5 5.5 0 0 1 291.00 5.50V9.30H239.00V5.50A5.5 5.5 0 0 1 244.50 0.00Z"/><path d="M244.50 0.00H248.30V44.00H244.50A5.5 5.5 0 0 1 239.00 38.50V5.50A5.5 5.5 0 0 1 244.50 0.00Z"/><path d="M239.00 34.70H291.00V38.50A5.5 5.5 0 0 1 285.50 44.00H244.50A5.5 5.5 0 0 1 239.00 38.50V34.70Z"/><path d="M281.70 22.00H291.00V38.50A5.5 5.5 0 0 1 285.50 44.00H281.70V22.00Z"/><path d="M263.96 22.00H291.00V31.30H263.96V22.00Z"/><path d="M305.50 0.00H344.50A5.5 5.5 0 0 1 350.00 5.50V9.30H300.00V5.50A5.5 5.5 0 0 1 305.50 0.00Z"/><path d="M305.50 0.00H309.30V44.00H300.00V5.50A5.5 5.5 0 0 1 305.50 0.00Z"/><path d="M340.70 0.00H344.50A5.5 5.5 0 0 1 350.00 5.50V44.00H340.70V0.00Z"/><path d="M308.30 24.00H341.70V33.30H308.30V24.00Z"/><path d="M361.50 0.00H396.00A14 14 0 0 1 410.00 14.00V30.00A14 14 0 0 1 396.00 44.00H361.50A2.5 2.5 0 0 1 359.00 41.50V2.50A2.5 2.5 0 0 1 361.50 0.00ZM368.30 9.30H394.70A6 6 0 0 1 400.70 15.30V28.70A6 6 0 0 1 394.70 34.70H368.30V9.30Z"/></g></svg></h2>
+          </div>
+          <p class="lede">
+            Gestão de mapeamentos agrícolas com drone. Cada voo vira um mapa do talhão que mostra onde a lavoura
+            vai bem, onde há falha e onde vale coletar solo.
           </p>
+        </div>
+
+        <figure class="screen">
+          <div class="screen-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="assets/img/1795607403356_image.png" width="1864" height="879" loading="lazy"
+               alt="Tela do AgroGAD com o mapa NDVI de um talhão de 69 hectares, painel de camadas (RGB, NDVI, clorofila, elevação e prescrição), ocorrências marcadas no mapa e linha do tempo dos voos." />
+          <figcaption>Mapa NDVI de um talhão no AgroGAD, com camadas, ocorrências de campo e linha do tempo dos voos.</figcaption>
+        </figure>
+
+        <ul class="feature-cols">
+          <li><strong>Camadas por voo</strong><span>RGB, NDVI, clorofila, elevação e prescrição por zonas de manejo.</span></li>
+          <li><strong>Ocorrências no mapa</strong><span>Pragas, nematoides, daninhas e falhas marcadas no ponto exato.</span></li>
+          <li><strong>Linha do tempo</strong><span>Compare datas e safras do mesmo talhão lado a lado.</span></li>
+          <li><strong>Uso sem internet</strong><span>Baixe os mapas da área para abrir no campo sem sinal.</span></li>
+        </ul>
+
+        <div class="invite">
+          <div class="invite-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8"/><path d="M18.5 14.2A6.5 6.5 0 0 1 21.5 20"/></svg>
+          </div>
+          <div>
+            <h3>Acesso por convite</h3>
+            <p>
+              Novos usuários chegam ao AgroGAD por convite de quem já usa a plataforma. Escolhemos crescer assim,
+              sem anúncios, para acompanhar cada cliente de perto e garantir que ele aproveite bem tudo o que a
+              ferramenta oferece. Se você tem interesse, fale com a gente.
+            </p>
+          </div>
+          <a class="btn btn-solid btn-agr" href="https://wa.me/5565999157411?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20AgroGAD." target="_blank" rel="noopener noreferrer">Saiba mais</a>
         </div>
       </div>
     </section>
 
     <!-- SOBRE -->
-    <section id="sobre">
-      <h2 class="section-title">Sobre a FlynexPRO</h2>
-      <p class="section-subtitle">
-        Plataforma modular, dados em tempo real e foco em confiabilidade operacional.
-      </p>
-
-      <div class="grid-2">
+    <section class="about" id="sobre" aria-labelledby="sobre-title">
+      <div class="wrap split">
         <div>
-          <div class="card">
-            <h3>Quem somos</h3>
-            <p>
-              A FlynexPRO desenvolve uma <strong>plataforma de monitoramento industrial</strong> orientada à
-              supervisão inteligente de ativos críticos. Em vez de soluções isoladas, entregamos um ecossistema
-              completo que integra <strong>dispositivos</strong>, <strong>software</strong> e <strong>dados</strong>
-              para suportar tomada de decisão técnica baseada em evidências.
-            </p>
-            <p>
-              Nosso objetivo é aumentar a visibilidade da condição real dos ativos, antecipar falhas,
-              reduzir paradas não programadas e elevar a eficiência operacional por meio de monitoramento contínuo.
-            </p>
-
-            <div class="tag-list">
-              <span class="tag">Plataforma</span>
-              <span class="tag">Monitoramento industrial</span>
-              <span class="tag">IoT</span>
-              <span class="tag">Supervisão em tempo real</span>
-              <span class="tag">Manutenção preditiva</span>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div class="card">
-            <h3>Como trabalhamos</h3>
-            <ul class="checklist">
-              <li><strong>Camada de hardware:</strong> módulos industriais baseados em sensores robustos.</li>
-              <li><strong>Firmware embarcado:</strong> filtragem digital, calibração, diagnóstico e resiliência.</li>
-              <li><strong>Comunicação:</strong> integração via ModbusTCP, MQTT e APIs conforme necessidade.</li>
-              <li><strong>Supervisão e dados:</strong> dashboards, alarmes, histórico e análise de tendência.</li>
-              <li><strong>Modularidade:</strong> expansão por módulos, sem dependência do SCADA principal.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PLATAFORMA -->
-    <section id="plataforma">
-      <h2 class="section-title">A Plataforma FlynexPRO</h2>
-      <p class="section-subtitle">
-        Um núcleo comum de dados, comunicação e supervisão para múltiplos módulos e aplicações.
-      </p>
-
-      <div class="grid-2">
-        <div>
-          <div class="card">
-            <h3>O que é</h3>
-            <p>
-              A FlynexPRO funciona como uma <strong>Platform-as-a-Service</strong> de monitoramento industrial:
-              um núcleo tecnológico que padroniza aquisição de dados, processamento local, comunicação e supervisão,
-              permitindo conectar módulos especializados (como NexGAP e NexVIB) com integração consistente e escalável.
-            </p>
-            <p>
-              Isso reduz complexidade de implantação, acelera integrações e mantém a solução evolutiva para novos
-              sensores e novos verticais industriais.
-            </p>
-          </div>
-        </div>
-
-        <div>
-          <div class="card">
-            <h3>Camadas da plataforma</h3>
-            <ul class="checklist">
-              <li><strong>Edge/Embarcado:</strong> coleta, filtragem e diagnóstico local.</li>
-              <li><strong>Conectividade:</strong> Modbus TCP, MQTT e APIs.</li>
-              <li><strong>Dados:</strong> histórico, eventos e exportação.</li>
-              <li><strong>Supervisão:</strong> dashboards técnicos, alarmes e tendência.</li>
-              <li><strong>Integrações:</strong> SCADA, BI e sistemas corporativos.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- MÓDULOS -->
-    <section id="modulos">
-      <h2 class="section-title">Módulos da Plataforma</h2>
-      <p class="section-subtitle">
-        Módulos especializados integrados ao núcleo FlynexPRO: hardware + firmware + dados.
-      </p>
-
-      <div class="product-grid">
-        <article class="product-card">
-          <div class="product-label">Módulo</div>
-          <h3>NexGAP – Monitoramento de Gap de Blades</h3>
+          <h2 class="display" id="sobre-title">Sobre a FlynexPRO</h2>
           <p>
-            Módulo da plataforma FlynexPRO para monitorar, em tempo real, o <strong>gap entre blades</strong> de
-            aerogeradores. Projetado para atuar como uma camada adicional de supervisão, independente da lógica
-            de controle da turbina.
+            Somos uma empresa de tecnologia de Nova Mutum, Mato Grosso. Começamos no monitoramento de ativos críticos,
+            com equipe que vem da operação e manutenção de usinas, e levamos o mesmo método para a saúde e para o agro.
           </p>
-          <div class="product-meta">
-            <strong>Aplicações:</strong> desalinhamento de blades, variação de gap, suporte à manutenção de pitch,
-            e correlação com vibração estrutural.
-          </div>
-          <div class="product-footer">
-            Integração nativa à camada de dados e supervisão da plataforma.
-          </div>
-        </article>
-
-        <article class="product-card">
-          <div class="product-label">Módulo</div>
-          <h3>NexVIB – Vibração Estrutural por Pá</h3>
           <p>
-            Módulo complementar da plataforma FlynexPRO dedicado à <strong>coleta de vibração</strong> por pá,
-            com processamento local e integração direta ao ambiente de supervisão e dados.
+            Em todos os produtos o objetivo é o mesmo: medir com precisão, mostrar a informação de um jeito claro
+            e ajudar quem está no campo, na clínica ou na lavoura a decidir mais rápido.
           </p>
-          <div class="product-meta">
-            <strong>Aplicações:</strong> detecção precoce de trincas, ressonância anormal, aumento de carga dinâmica
-            e correlação vibração × gap.
-          </div>
-          <div class="product-footer">
-            Expande o diagnóstico estrutural com instrumentação modular.
-          </div>
-        </article>
-
-        <article class="product-card">
-          <div class="product-label">Camada de Supervisão</div>
-          <h3>Supervisório Dedicado – Dashboards, Alarmes e Histórico</h3>
-          <p>
-            Camada de supervisão da plataforma para visualização técnica, alarmes configuráveis, logs de eventos,
-            histórico e exportação de dados, com acesso remoto seguro.
-          </p>
-          <div class="product-meta">
-            <strong>Destaques:</strong> visualização por ativo, tendência, rastreabilidade de eventos e integração
-            com sistemas externos quando necessário.
-          </div>
-          <div class="product-footer">
-            Operação independente do SCADA principal, com foco em supervisão especializada.
-          </div>
-        </article>
+        </div>
+        <ul class="principles">
+          <li><strong>Feito por quem opera</strong><span>Os produtos nascem de problemas reais de manutenção, atendimento e lavoura.</span></li>
+          <li><strong>Tecnologia própria</strong><span>Hardware, firmware e software desenvolvidos aqui, com suporte direto de quem fez.</span></li>
+          <li><strong>Sem ilhas de dados</strong><span>Tudo exporta e integra com os sistemas que você já usa.</span></li>
+        </ul>
       </div>
     </section>
 
     <!-- CONTATO -->
-    <section id="contato">
-      <h2 class="section-title">Contato</h2>
-      <p class="section-subtitle">
-        Quer discutir uma aplicação, escopo de implantação ou integração da plataforma?
-      </p>
-
-      <div class="contact">
-        <div>
-          <h3>Fale com a FlynexPRO</h3>
-          <p>
-            Envie sua necessidade técnica, quantidade de ativos/pontos monitorados e requisitos de integração para
-            receber uma proposta personalizada de implantação da <strong>plataforma FlynexPRO</strong>.
-          </p>
-          <p>
-            Também podemos agendar uma apresentação técnica com foco em arquitetura, camadas da plataforma e roadmap
-            de expansão por módulos.
-          </p>
-
-          <div class="contact-actions">
-            <a class="btn btn-primary" href="https://wa.me/5596911667411" target="_blank" rel="noopener noreferrer">
-              WhatsApp
-            </a>
-            <a class="btn btn-outline" href="mailto:contato@flynexpro.com.br?subject=Contato%20-%20FlynexPRO">
-              Enviar e-mail
-            </a>
+    <section class="contact" id="contato" aria-labelledby="contato-title">
+      <div class="wrap">
+        <div class="contact-box">
+          <div>
+            <h2 class="display" id="contato-title">Vamos conversar sobre o seu projeto</h2>
+            <p class="lede">
+              Conte qual produto interessa e o tamanho da operação: quantas turbinas, profissionais ou hectares.
+              Respondemos com uma proposta ou um horário para demonstração.
+            </p>
+            <div class="contact-actions">
+              <a class="btn btn-solid" href="https://wa.me/5596911667411" target="_blank" rel="noopener noreferrer">Chamar no WhatsApp</a>
+              <button class="btn" type="button" data-lead="">Preencher formulário</button>
+            </div>
           </div>
-        </div>
-
-        <div class="contact-info">
-          <div><span>E-mail:</span> <a href="mailto:contato@flynexpro.com.br">contato@flynexpro.com.br</a></div>
-          <div><span>WhatsApp:</span> <a href="https://wa.me/5596911667411" target="_blank" rel="noopener noreferrer">(96) 9 9116-7411</a></div>
-          <div><span>Cidade/UF:</span> Nova Mutum &mdash; MT</div>
-          <div style="margin-top:0.7rem;"></div>
+          <ul class="contact-info">
+            <li><span>E-mail</span><a href="mailto:contato@flynexpro.com.br?subject=Contato%20-%20FlynexPRO">contato@flynexpro.com.br</a></li>
+            <li><span>WhatsApp</span><a href="https://wa.me/5596911667411" target="_blank" rel="noopener noreferrer">(96) 9 9116-7411</a></li>
+            <li><span>Cidade</span><strong>Nova Mutum, MT</strong></li>
+          </ul>
         </div>
       </div>
     </section>
   </main>
 
   <footer>
-    © <span id="year"></span> FlynexPRO · Plataforma de Monitoramento Industrial ·
-    Todos os direitos reservados.
+    <div class="wrap">
+      <span>© <span id="year"></span> FlynexPRO. Todos os direitos reservados.</span>
+      <nav aria-label="Rodapé">
+        <ul>
+          <li><a href="#industrial">Industrial</a></li>
+          <li><a href="#physiopro">PhysioPRO</a></li>
+          <li><a href="#agrogad">AgroGAD</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
   </footer>
 
-  <!-- ✅ Lead CTA -->
-  <button class="floating-cta" id="leadCta" type="button"
-    aria-haspopup="dialog" aria-controls="leadModal" aria-expanded="false">
-    Saiba Mais
+  <!-- Lead CTA -->
+  <button class="floating-cta" id="leadCta" type="button" aria-haspopup="dialog" aria-controls="leadModal" aria-expanded="false">
+    Saiba mais
   </button>
 
-  <!-- ✅ Modal (estado inicial: oculto via aria-hidden) -->
-  <div class="lead-modal" id="leadModal"
-       role="dialog" aria-modal="true" aria-label="Formulário de contato"
-       aria-hidden="true">
+  <!-- Modal de lead (IDs e nomes de campos mantidos para o lead-modal.js) -->
+  <div class="lead-modal" id="leadModal" role="dialog" aria-modal="true" aria-labelledby="leadTitle" aria-hidden="true">
     <div class="lead-modal-panel" role="document">
       <div class="lead-modal-head">
         <div>
-          <h3 class="lead-modal-title">Saiba mais sobre a FlynexPRO</h3>
-          <div class="lead-modal-sub">
-            Preencha seus dados e a equipe entra em contato para uma apresentação técnica (plataforma, módulos e implantação).
-          </div>
+          <h3 class="lead-modal-title" id="leadTitle">Fale com a FlynexPRO</h3>
+          <div class="lead-modal-sub">Deixe seus dados e a equipe entra em contato para uma apresentação.</div>
         </div>
-        <button class="lead-modal-close" id="leadClose" type="button" aria-label="Fechar">Fechar</button>
+        <button class="lead-modal-close" id="leadClose" type="button" aria-label="Fechar formulário">Fechar</button>
       </div>
 
       <div class="lead-modal-body">
         <form id="leadForm">
-          <!-- Honeypot anti-bot -->
-          <div class="lead-hidden">
+          <div class="lead-hidden" aria-hidden="true">
             <label>Se você é humano, deixe em branco</label>
             <input type="text" name="website" autocomplete="off" tabindex="-1" />
           </div>
 
           <div class="lead-grid">
+            <div class="field field-full">
+              <label for="leadProduct">Produto de interesse</label>
+              <select id="leadProduct" name="product">
+                <option value="">Ainda não sei</option>
+                <option value="industrial">FlynexPRO CORE, NexGAP e NexVIB</option>
+                <option value="physiopro">PhysioPRO</option>
+                <option value="agrogad">AgroGAD</option>
+              </select>
+            </div>
             <div class="field">
               <label for="leadName">Nome *</label>
-              <input id="leadName" name="name" type="text" required maxlength="120" placeholder="Seu nome" />
+              <input id="leadName" name="name" type="text" required maxlength="120" autocomplete="name" placeholder="Seu nome" />
             </div>
-
             <div class="field">
               <label for="leadEmail">E-mail *</label>
-              <input id="leadEmail" name="email" type="email" required maxlength="160" placeholder="seuemail@empresa.com" />
+              <input id="leadEmail" name="email" type="email" required maxlength="160" autocomplete="email" placeholder="seuemail@empresa.com" />
             </div>
-
             <div class="field">
-              <label for="leadPhone">Tel. de contato</label>
-              <input id="leadPhone" name="phone" type="tel" maxlength="32" placeholder="(DD) 9 9999-9999" />
+              <label for="leadPhone">Telefone</label>
+              <input id="leadPhone" name="phone" type="tel" maxlength="32" autocomplete="tel" placeholder="(DD) 9 9999-9999" />
             </div>
-
             <div class="field">
               <label for="leadWhatsapp">WhatsApp</label>
               <input id="leadWhatsapp" name="whatsapp" type="tel" maxlength="32" placeholder="(DD) 9 9999-9999" />
             </div>
-
             <div class="field">
               <label for="leadCity">Cidade</label>
-              <input id="leadCity" name="city" type="text" maxlength="80" placeholder="Ex.: Nova Mutum" />
+              <input id="leadCity" name="city" type="text" maxlength="80" autocomplete="address-level2" placeholder="Ex.: Nova Mutum" />
             </div>
-
             <div class="field">
               <label for="leadState">Estado</label>
-              <input id="leadState" name="state" type="text" maxlength="2" placeholder="UF (ex.: MT)" />
+              <input id="leadState" name="state" type="text" maxlength="2" autocomplete="address-level1" placeholder="UF, ex.: MT" />
             </div>
-
             <div class="field">
-              <label for="leadCompany">Empresa</label>
-              <input id="leadCompany" name="company" type="text" maxlength="120" placeholder="Nome da empresa" />
+              <label for="leadCompany">Empresa ou clínica</label>
+              <input id="leadCompany" name="company" type="text" maxlength="120" autocomplete="organization" placeholder="Nome da empresa" />
             </div>
-
             <div class="field">
               <label for="leadRole">Cargo</label>
-              <input id="leadRole" name="role" type="text" maxlength="120" placeholder="Ex.: Eng. Manutenção" />
+              <input id="leadRole" name="role" type="text" maxlength="120" autocomplete="organization-title" placeholder="Ex.: Eng. de manutenção" />
             </div>
           </div>
 
           <div class="lead-actions">
-            <button class="btn btn-primary" id="leadSubmit" type="submit">Enviar</button>
+            <button class="btn btn-solid" id="leadSubmit" type="submit">Enviar contato</button>
             <div class="lead-status" id="leadStatus" aria-live="polite"></div>
           </div>
         </form>
@@ -984,85 +952,77 @@
   </div>
 
   <script>
-    // ano
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // drawer mobile
-    const drawer = document.getElementById("drawer");
-    const menuBtn = document.getElementById("menuBtn");
-    const drawerClose = document.getElementById("drawerClose");
+    /* ---------- Menu mobile ---------- */
+    (function () {
+      const drawer = document.getElementById("drawer");
+      const menuBtn = document.getElementById("menuBtn");
+      const closeBtn = document.getElementById("drawerClose");
 
-    function openDrawer() {
-      drawer.classList.add("open");
-      menuBtn.setAttribute("aria-expanded", "true");
-      document.body.style.overflow = "hidden";
+      function open() { drawer.classList.add("open"); menuBtn.setAttribute("aria-expanded", "true"); document.body.style.overflow = "hidden"; closeBtn.focus(); }
+      function close() { drawer.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); document.body.style.overflow = ""; }
+
+      menuBtn.addEventListener("click", open);
+      closeBtn.addEventListener("click", close);
+      drawer.addEventListener("click", (e) => { if (e.target === drawer) close(); });
+      drawer.querySelectorAll(".drawer-link").forEach((a) => a.addEventListener("click", close));
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape" && drawer.classList.contains("open")) close(); });
+    })();
+
+    /* ---------- Pausa os vídeos para quem prefere menos movimento ---------- */
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.querySelectorAll("video[autoplay]").forEach((v) => { v.removeAttribute("autoplay"); v.pause(); v.controls = true; });
     }
-
-    function closeDrawer() {
-      drawer.classList.remove("open");
-      menuBtn.setAttribute("aria-expanded", "false");
-      document.body.style.overflow = "";
-    }
-
-    menuBtn.addEventListener("click", openDrawer);
-    drawerClose.addEventListener("click", closeDrawer);
-
-    drawer.addEventListener("click", (e) => {
-      if (e.target === drawer) closeDrawer();
-    });
-
-    document.querySelectorAll(".drawer-link").forEach((a) => {
-      a.addEventListener("click", closeDrawer);
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && drawer.classList.contains("open")) closeDrawer();
-    });
   </script>
 
-  <!-- ✅ Se você tiver um lead-modal.js funcional, pode manter -->
+  <!-- Script do formulário (envio). Mantido do site atual. -->
   <script src="assets/js/lead-modal.js"></script>
 
-  <!-- ✅ FAILSAFE: garante abrir/fechar mesmo se o JS externo falhar -->
+  <!-- Abre e fecha o modal mesmo se o script externo falhar; botões com data-lead já escolhem o produto -->
   <script>
     (function () {
       const cta = document.getElementById("leadCta");
       const modal = document.getElementById("leadModal");
       const closeBtn = document.getElementById("leadClose");
-
+      const product = document.getElementById("leadProduct");
       if (!cta || !modal || !closeBtn) return;
+      let lastTrigger = null;
 
-      function setOpen(isOpen) {
+      function setOpen(isOpen, trigger) {
         if (isOpen) {
-          modal.classList.add("open");              // compatível com CSS externo
-          modal.style.display = "flex";             // fallback se o CSS externo não tiver .open
+          lastTrigger = trigger || cta;
+          modal.classList.add("open");
+          modal.style.display = "flex";
           modal.setAttribute("aria-hidden", "false");
           cta.setAttribute("aria-expanded", "true");
           document.body.style.overflow = "hidden";
+          setTimeout(() => document.getElementById("leadName").focus(), 30);
         } else {
           modal.classList.remove("open");
-          modal.style.display = "";                 // volta para o CSS mandar
+          modal.style.display = "";
           modal.setAttribute("aria-hidden", "true");
           cta.setAttribute("aria-expanded", "false");
           document.body.style.overflow = "";
+          if (lastTrigger) lastTrigger.focus();
         }
       }
 
-      cta.addEventListener("click", () => setOpen(true));
-      closeBtn.addEventListener("click", () => setOpen(false));
-
-      // clicar fora fecha
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) setOpen(false);
+      cta.addEventListener("click", () => setOpen(true, cta));
+      document.querySelectorAll("[data-lead]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (product) product.value = btn.dataset.lead;
+          setOpen(true, btn);
+        });
       });
-
-      // ESC fecha modal
+      closeBtn.addEventListener("click", () => setOpen(false));
+      modal.addEventListener("click", (e) => { if (e.target === modal) setOpen(false); });
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && modal.getAttribute("aria-hidden") === "false") setOpen(false);
       });
 
-      // garante que inicia fechado
       setOpen(false);
+      lastTrigger = null;
     })();
   </script>
 </body>
