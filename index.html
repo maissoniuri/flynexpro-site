@@ -402,8 +402,8 @@
       margin-top: clamp(3.5rem, 8vw, 5rem);
       padding-top: clamp(3rem, 6vw, 4rem);
       border-top: 1px solid var(--line);
-      display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-      gap: clamp(2rem, 5vw, 4rem); align-items: start;
+      display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+      gap: clamp(2rem, 4.5vw, 3.5rem); align-items: stretch;
     }
     .founder-head { display: flex; align-items: stretch; gap: 1.2rem; margin-bottom: 1.4rem; }
     .founder-head .founder-name { line-height: 1.05; }
@@ -425,25 +425,35 @@
       position: relative; overflow: hidden;
       border: 1px solid var(--line-strong); border-radius: var(--r-lg);
       background: var(--ink); padding: clamp(1.5rem, 3vw, 2rem);
+      display: flex; flex-direction: column;
     }
-    .book-top { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 1.3rem; align-items: center; margin-bottom: 1.2rem; }
+    .book-buy { margin-top: auto; }
+    .book-buy h4 { margin-top: 0.4rem !important; }
+    .book-top {
+      display: grid; place-items: center;
+      margin: calc(-1 * clamp(1.5rem, 3vw, 2rem)) calc(-1 * clamp(1.5rem, 3vw, 2rem)) 1.6rem;
+      padding: 1.5rem 1.5rem 1.6rem;
+      background: radial-gradient(ellipse 60% 70% at 50% 45%, rgba(224,122,82,0.18), transparent 70%), var(--ink-2);
+      border-bottom: 1px solid var(--line);
+    }
+    .book-top a { display: block; width: min(132px, 40%); }
     .book-cover {
       width: 100%; height: auto; border-radius: 4px;
-      box-shadow: 0 18px 36px -12px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.08);
-      transform: rotate(-2deg);
+      box-shadow: 0 24px 44px -14px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.08);
     }
-    .book-label { color: var(--muted); font-size: 0.92rem; margin-bottom: 0.3rem; }
+    .book-label { color: var(--muted); font-size: 0.92rem; margin-bottom: 0.3rem !important; }
     .book h3 {
-      font-variation-settings: "wdth" 120; font-weight: 750;
-      font-size: clamp(1.6rem, 2.8vw, 2.1rem); line-height: 1.05; letter-spacing: -0.015em;
+      font-variation-settings: "wdth" 108; font-weight: 750;
+      font-size: clamp(1.6rem, 2.4vw, 1.95rem); line-height: 1.1; letter-spacing: -0.01em;
+      overflow-wrap: break-word;
     }
-    .book-sub { color: #E07A52; font-weight: 550; margin: 0.45rem 0 0; line-height: 1.4; }
-    .book > p { color: var(--muted); font-size: 0.98rem; }
+    .book-sub { color: #E07A52; font-weight: 550; margin: 0.45rem 0 1.1rem; line-height: 1.4; }
+    .book > p, .book-how { color: var(--muted); font-size: 0.98rem; }
     .book h4 { font-size: 1rem; font-weight: 650; margin: 1.4rem 0 0.3rem; }
     .book .btn { margin-top: 1.1rem; width: 100%; }
     .btn-book.btn-solid { background: #E07A52; border-color: #E07A52; color: #1A0D06; }
     .btn-book.btn-solid:hover { background: #EA9675; border-color: #EA9675; }
-    .book-meta { margin-top: 0.9rem; font-size: 0.82rem; color: #6f8495 !important; }
+    .book-meta { margin-top: 0.9rem; font-size: 0.82rem; color: #6f8495 !important; text-align: center !important; }
 
     /* ---------- Contato ---------- */
     .contact { padding: clamp(4rem, 9vw, 6.5rem) 0; }
@@ -511,6 +521,16 @@
     .lead-grid input:focus, .lead-grid select:focus { outline: 2px solid var(--ind); outline-offset: 0; border-color: transparent; }
     .lead-actions { display: flex; align-items: center; gap: 1rem; margin-top: 1.3rem; flex-wrap: wrap; }
     .lead-status { color: var(--muted); font-size: 0.92rem; }
+
+    /* ---------- Textos justificados ---------- */
+    .lede, .founder-bio > p, .book > p:not(.book-label):not(.book-sub):not(.book-meta), .book-how,
+    .about .split p, .spot-text > p, .invite p, .module-body p:not(.protocols),
+    .feature-list span, .feature-cols span, .principles span, .mini-steps span {
+      text-align: justify;
+      text-justify: inter-word;
+      hyphens: auto; -webkit-hyphens: auto;
+      text-align-last: left;
+    }
 
     /* ---------- Responsivo ---------- */
     @media (max-width: 980px) {
@@ -924,21 +944,21 @@
               <img class="book-cover" src="assets/img/capa-reescrevendo-o-jogo.jpg" width="640" height="960"
                    alt="" loading="lazy" />
             </a>
-            <div>
-              <p class="book-label">Livro do fundador</p>
-              <h3 id="book-title">Reescrevendo o Jogo</h3>
-              <p class="book-sub">Negócios, estratégia e inovação real para a era pós-software</p>
-            </div>
           </div>
+          <p class="book-label">Livro do fundador</p>
+          <h3 id="book-title">Reescrevendo o Jogo</h3>
+          <p class="book-sub">Negócios, estratégia e inovação real para a era pós-software</p>
           <p>
             Quando todos usam o mesmo software, ninguém se diferencia. O livro mostra por que as vantagens
             competitivas tradicionais estão desaparecendo, como identificar o que na sua empresa já virou commodity
             e como construir sistemas próprios, enxutos e à prova de obsolescência.
           </p>
-          <h4>Como comprar</h4>
-          <p>Está à venda na Amazon, em e-book para Kindle e em livro impresso.</p>
-          <a class="btn btn-solid btn-book" href="https://a.co/d/04Xe2ck5" target="_blank" rel="noopener noreferrer">Comprar na Amazon</a>
-          <p class="book-meta">Publicação independente, 2026. ISBN 9798167364769.</p>
+          <div class="book-buy">
+            <h4>Como comprar</h4>
+            <p class="book-how">Está à venda na Amazon, em e-book para Kindle e em livro impresso.</p>
+            <a class="btn btn-solid btn-book" href="https://a.co/d/04Xe2ck5" target="_blank" rel="noopener noreferrer">Comprar na Amazon</a>
+            <p class="book-meta">Publicação independente, 2026<br />ISBN 9798167364769</p>
+          </div>
         </aside>
       </div>
     </section>
